@@ -1,17 +1,25 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { BrowserRouter } from 'react-router-dom';
 import './index.css';
-import App from './App';
-import * as serviceWorker from './serviceWorker';
+import App from './components/app/app';
+import 'bootstrap/dist/css/bootstrap.min.css';
+// import { IntlProvider } from 'react-intl';
+// import en from './components/locales/en.json';
+// import ru from './components/locales/ru.json';
+// import locales from './components/locales';
+
+
+// const messages = {
+//   en,
+//   ru
+// }
 
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
+  <BrowserRouter>
+      {/* <IntlProvider locales={locales.EN} messages={messages[locales.EN]}> */}
+          <App />
+      {/* </IntlProvider> */}
+  </BrowserRouter>,
   document.getElementById('root')
 );
-
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
-serviceWorker.unregister();
