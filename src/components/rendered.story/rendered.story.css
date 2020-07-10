@@ -1,0 +1,21 @@
+.form-story {
+    padding: 10px 10px 10px 10px;
+    margin-bottom: 10px;
+    border: 1px solid #d3d3d3;
+}
+
+.header-story {
+    display: inline;
+}
+
+.btn-lg {
+    float: right;
+}
+
+.tools {
+    text-align: center;
+}
+
+.fa-star {
+    margin-right: 4px;
+}

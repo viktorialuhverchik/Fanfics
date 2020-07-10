@@ -1,12 +1,18 @@
 import React from 'react';
-import './story.css';
+import { Row, Col } from 'reactstrap';
+import Comments from '../comments/comments';
+import RenderedStory from '../rendered.story/rendered.story';
+
 
 const PageStory = () => {
     return (
-        <div>
-           
-        </div>
-    )
+        <Row>
+            <Col>
+                <RenderedStory />
+                <Comments />
+            </Col>
+        </Row>
+    );
 }
 
 export default PageStory;

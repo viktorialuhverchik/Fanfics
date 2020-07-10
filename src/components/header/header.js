@@ -1,21 +1,31 @@
-import React from 'react';
+import React, { Component } from 'react';
+import { FormattedMessage } from 'react-intl';
+import { Row, Col, Button } from 'reactstrap';
+import { Link } from "react-router-dom";
+import SearchPanel from '../search.panel/search.panel';
+import RenderedStory from '../rendered.story/rendered.story';
+import storyService from '../../services/story.service';
 import './header.css';
-// import LocaleSelector from '../locale.selector/locale.selector';
 
-
-const Header = () => {
-    return (
-        <div className="app-header d-flex">
-            <p className="logo">Fanfics</p>
-            {/* <LocaleSelector /> */}
-            <div className="d-flex justify-content-end">
-                <button className="user-icon"></button>
-            </div>
-            
-
-        </div>
-    )
+export default class Header extends Component {
+    
+    render() {
+        return (
+            <Row className="app-header">
+                <Col>
+                    <Link to="/" className="logo">Fanfics</Link>
+                    <Link to="/sortedbynew" className="sorted-by-new">New</Link>
+                    <Link to="/sortedbyrating" className="sorted-by-rating">Popular</Link>
+                </Col>
+                <Col className="search-panel">
+                    <SearchPanel />
+                </Col>
+                <Col>
+                <Link to="/user"className="btn btn-lg active">
+                        <button className="user-icon"></button>
+                </Link>
+                </Col>
+            </Row>
+        );
+    }
 }
-
-
-export default Header;

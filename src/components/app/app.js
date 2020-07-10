@@ -1,44 +1,61 @@
-import React from 'react';
-import { Route } from 'react-router-dom';
-import './app.css';
+import React, {useState} from 'react';
+import { Route, Switch } from "react-router-dom";
+import { Col } from 'reactstrap';
 import Header from '../header/header';
-import Signup from '../signup/signup';
+import Menu from '../menu/menu';
+import MainPage from '../main.page/main.page';
 import Login from '../login/login';
+import Signup from '../signup/signup';
+import SortedByNew from '../sorted.by.new/sorted.by.new';
+import SortedByRating from '../sorted.by.rating/sorted.by.rating';
 import User from '../user/user';
-import Story from '../story/story';
-import NewStory from '../add.story/add.story';
-// import locales from '../locales';
-// import { IntlProvider } from 'react-intl';
-// import { FormattedMessage } from 'react-intl';
+import AddNewStory from '../add.new.story/add.new.story';
+import PageStory from '../page.story/page.story';
+import MarkdownPageStory from '../markdown.page.story/markdown.page.story';
+import locales from '../locales';
+import LocaleSelector from '../locale.selector/locale.selector';
+import { IntlProvider } from 'react-intl';
+import en from '../locales/en.json';
+import ru from '../locales/ru.json';
+import './app.css';
 
-// const messages = {
-//   [locales.EN]: en,
-//   [locales.RU]: ru
-// }
+const messages = {
+    [locales.EN]: en,
+    [locales.RU]: ru
+};
 
-// const localStorageKey;
+const localStorageKey = {
+    SELECTED_LOCALE: "my-app.selected-locale"
+};
 
 function App() {
-//   const [selectedState, setSelectedState] = useState(localStorage.getItem(localStorageKey.SELECTED_LOCALE) || locales.en);
-//   const onLocaleChange = value => {
-//     setSelectedState(value);
-//     localStorage.setItem(localStorageKey.SELECTED_LOCALE, value);
-//   }
-
-  return (
-    <div className="app">
-        {/* <IntlProvider locale={selectedState} messages={messages[selectedState]}> */}
-              {/* <LocaleSelector onLocaleChange={onLocaleChange} /> */}
+    const [selectedState, setSelectedState] = useState(localStorage.getItem(localStorageKey.SELECTED_LOCALE) || locales.en);
+    const onLocaleChange = value => {
+        setSelectedState(value);
+        localStorage.setItem(localStorageKey.SELECTED_LOCALE, value);
+    };
+    return (
+        <div className="app">
+            <IntlProvider locale={selectedState} messages={messages[selectedState]}>
                 <Header />
-                {/* <FormattedMessage id="messages.locale-selector"/> */}
-                <Route path={"/signup"} component={Signup}></Route>
-                <Route path={"/login"} component={Login}></Route>
-                <Route path={"/user"} component={User}></Route>
-                <Route path={"/newstory"} component={NewStory}></Route>
-                <Story />
-        {/* </IntlProvider> */}
-    </div>
-  );
+                <LocaleSelector onLocaleChange={onLocaleChange} />
+                <Col xs={6} md={4} className="menu">
+                    <Menu />
+                </Col>
+                <Switch>
+                    <Route exact path="/login" component={Login} />
+                    <Route exact path="/signup" component={Signup} />
+                    <Route exact path="/sortedbynew" component={SortedByNew} />
+                    <Route exact path="/sortedbyrating" component={SortedByRating} />
+                    <Route exact path="/user" component={User} />
+                    <Route exact path="/addnewstory" component={AddNewStory} />
+                    <Route exact path="/pagestory" component={PageStory} />
+                    <Route exact path="/markdownpage" component={MarkdownPageStory} />
+                    <Route exact path="/" component={MainPage} />
+                </Switch>
+            </IntlProvider>
+        </div>
+    );
 }
 
 export default App;

@@ -1,3 +1,14 @@
 {
-    "messages.locale-selector": "Hello!"
+    "login": "Login",
+    "password": "Password",
+    "username": "Username",
+    "signup": "Sign up",
+    "button-signup": "Sign up",
+    "button-login": "Login",
+    "button-add-story": "Add new story",
+    "button-cancel": "Cancel",
+    "button-add-comment": "Add comment",
+    "sorted-by-new": "New",
+    "sorted-by-rating": "Popular",
+    "button-add-chapter": "Add chapter"
 }

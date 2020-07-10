@@ -1,0 +1,40 @@
+.form-add-new-story {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: start; 
+    padding: 10px 10px 10px 10px;
+    border: 1px solid #d3d3d3;
+}
+
+.form-input-heading {
+    height: 40px;
+    width: 70%;
+    margin-bottom: 10px;
+}
+
+.form-input-tags {
+    height: 40px;
+    margin-bottom: 10px;
+}
+
+.form-btn-add-story {
+    height: 40px;
+    margin-top: 10px;
+}
+
+.form-btn-cancel {
+    margin-left: 5px;
+    margin-top: 10px;
+    height: 40px;
+}
+
+.select-genres {
+    width: 200px;
+    margin-bottom: 10px;
+}
+
+.basic-multi-select {
+    width: 200px;
+    margin-bottom: 10px;
+}

@@ -1,3 +1,14 @@
 {
-    "messages.locale-selector": "Привет!"
+    "login": "Авторизация",
+    "password": "Пароль",
+    "username": "Логин",
+    "signup": "Регистрация",
+    "button-signup": "Создать аккаунт",
+    "button-login": "Войти",
+    "button-add-story": "Добавить новый рассказ",
+    "button-cancel": "Отмена",
+    "button-add-comment": "Добавить",
+    "sorted-by-new": "Новое",
+    "sorted-by-rating": "Популярное",
+    "button-add-chapter": "Добавить главу"
 }

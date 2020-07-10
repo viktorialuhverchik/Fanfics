@@ -1,0 +1,19 @@
+.form-comments {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: start; 
+    padding: 10px 10px 10px 10px;
+    border: 1px solid #d3d3d3;
+}
+
+.form-btn-comments {
+    height: 40px;
+    margin-top: 10px;
+}
+
+.form-btn-cancel {
+    margin-left: 5px;
+    margin-top: 10px;
+    height: 40px;
+}

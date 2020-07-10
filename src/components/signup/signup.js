@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {Link, Redirect } from 'react-router-dom'; 
 import { Form, Button, Input } from 'reactstrap';
+import { FormattedMessage } from 'react-intl';
 import '../login/login.css';
 import authService from '../../services/auth.service';
 
@@ -46,9 +47,11 @@ export default class Signup extends Component {
         return(
             <div>
                 <Form 
-                className='form float-right'
+                className='form'
                 onSubmit={this.handleSubmit}>
-                    <p>Registration</p>
+                    <p>
+                        <FormattedMessage id="signup" />
+                    </p>
                     <Input
                     className='form-input'
                     type="name"
@@ -63,7 +66,7 @@ export default class Signup extends Component {
                     className='form-input'
                     type="email"
                     name="email"
-                    placeholder="Email"
+                    placeholder="E-mail"
                     value={this.state.email}
                     onChange={this.handleChange}
                     required
@@ -83,12 +86,13 @@ export default class Signup extends Component {
                     className='form-btn'
                     type="submit" 
                     outline color="primary">
-                    Sign up</Button>
+                        <FormattedMessage id="button-signup" />
+                    </Button>
 
                     <Link 
                     className='form-link'
                     to={"/login"}>  
-                    Log in
+                        <FormattedMessage id="login" />
                     </Link>                  
                 </Form>
             </div>

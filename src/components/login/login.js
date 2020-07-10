@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link, Redirect } from 'react-router-dom'; 
 import { Form, Button, Input } from 'reactstrap';
+import { FormattedMessage } from 'react-intl';
 import './login.css';
 import authService from '../../services/auth.service';
 
@@ -45,14 +46,16 @@ export default class Login extends Component {
         return(
             <div>
                 <Form 
-                className="form float-right"
+                className="form"
                 onSubmit={this.handleSubmit}>
-                    <p>Login</p>
-                    <Input
+                    <p>
+                        <FormattedMessage id="login" />
+                    </p>
+                    <Input id="input-email"
                     className="form-input"
                     type="email"
                     name="email"
-                    placeholder="Email"
+                    placeholder="E-mail"
                     value={this.state.email}
                     onChange={this.handleChange}
                     required
@@ -62,7 +65,7 @@ export default class Login extends Component {
                     className="form-input"
                     type="password"
                     name="password"
-                    placeholder="Password"
+                    placeholder="Password" 
                     value={this.state.password}
                     onChange={this.handleChange}
                     required
@@ -72,11 +75,12 @@ export default class Login extends Component {
                     className="form-btn"
                     type="submit" 
                     outline color="primary">
-                    Log in
+                        <FormattedMessage id="button-login" />
                     </Button>
                     
-                    <Link className="form-link"
-                    to={"/signup"}>Sign up</Link>
+                    <Link to={"/signup"} className="form-link">
+                        <FormattedMessage id="signup" />
+                    </Link>
                 </Form>
             </div>
         );
