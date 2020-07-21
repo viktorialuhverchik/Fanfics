@@ -1,10 +1,23 @@
 .form-comments {
+    background-color: #ffffff;
     display: flex;
     flex-direction: column;
     justify-content: start;
     align-items: start; 
-    padding: 10px 10px 10px 10px;
+    padding: 15px;
     border: 1px solid #d3d3d3;
+}
+
+.form-comments.dark-theme {
+    background-color: #5b5656;
+}
+
+.comment {
+    height: 40px;
+    width: 100%;
+    margin-bottom: 10px;
+    border: 1px solid #d3d3d3;
+    border-radius: 0.25rem;
 }
 
 .form-btn-comments {
@@ -14,6 +27,5 @@
 
 .form-btn-cancel {
     margin-left: 5px;
-    margin-top: 10px;
     height: 40px;
 }

@@ -1,40 +1,39 @@
-import React, { Component } from 'react';
-import { Redirect } from 'react-router-dom'; 
+import React, { Component} from 'react';
+import { Redirect } from 'react-router-dom';
 import { FormattedMessage } from 'react-intl';
+import Dropzone from 'react-dropzone';
 import { Form, Button, Input, Col, Row } from 'reactstrap';
 import Select from 'react-select';
 import MarkdownInput from '../markdown/markdown';
-import Chapter from '../chapter/chapter';
 import storyService from '../../services/story.service';
 import './add.new.story.css';
-
-const genres = [
-    { value: 'fantastic', label: 'Fantastic' },
-    { value: 'horrors', label: 'Horrors' },
-    { value: 'mystic', label: 'Mystic' },
-];
-
-const tags = [ 
-    { value: 'tag1', label: 'tag1' },
-    { value: 'tag2', label: 'tag2' },
-    { value: 'tag3', label: 'tag3' }
-]
 
 export default class AddNewStory extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            heading: '',
+            heading: "",
+            genres: [],
             selectedGenre: null,
-            description: '',
-            tags: '',
+            description: "",
+            tags: [],
+            selectedTags: [],
+            newTag: "",
+            chapters: [{ heading: "", text: "" }], 
+            image: null,
             redirect: null
         };
 
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleSelect = this.handleSelect.bind(this);
+        this.handleChange = this.handleChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleSelectGenre = this.handleSelectGenre.bind(this);
+        this.addNewTag = this.addNewTag.bind(this);
+        this.handleDeleteTag = this.handleDeleteTag.bind(this);
+        this.addChapter = this.addChapter.bind(this);
+        this.renderChapter = this.renderChapter.bind(this);
+        this.setMarkdownText = this.setMarkdownText.bind(this);
+        this.handleCancel = this.handleCancel.bind(this);
     }
 
     handleChange(event) {
@@ -47,64 +46,233 @@ export default class AddNewStory extends Component {
         event.preventDefault();
 
         try {
-            let story = {
-                heading: this.state.heading,
-                genre: this.state.selectedGenre.value,
-                description: this.state.description,
-                tags: this.state.tags,
-            };
-
-            await storyService.createStories(story);
-           
-            this.setState({redirect: '/user'});
+            const story = await storyService.createStory(
+                this.state.heading, 
+                this.state.description, 
+                this.state.selectedGenre, 
+                this.state.chapters,
+                this.state.selectedTags
+                );
+            this.setState({ 
+                story,
+                redirect: '/user' 
+            });
         } catch(error) {
             console.log(error);
         }
     }
 
-    handleSelect (selectedGenre) {
-        this.setState(
-            { selectedGenre }
+    async componentDidMount() {
+        const genres = await storyService.getGenres();
+        this.setState({ genres });
+
+        const tags = await storyService.getTags();
+        this.setState({ tags });
+    }
+
+    
+    handleSelectGenre ({value}) {
+        console.log('genre', value);
+        this.setState({ selectedGenre: value });
+    }
+
+    addNewTag() {
+        let selectedTags = this.state.selectedTags;
+        selectedTags.push(this.state.newTag);
+        this.setState({
+            selectedTags: selectedTags,
+            newTag: ""
+        });
+    }
+
+    handleDeleteTag(i) {
+        let selectedTags = this.state.selectedTags;
+        selectedTags.splice(i, 1);
+        this.setState({ selectedTags });
+    }
+
+    addChapter() {
+        let chapters = this.state.chapters;
+        chapters.push({ heading: "", text: "" });
+        this.setState({ chapters });
+    }
+
+    setMarkdownText(index, text) {
+        let chapters = this.state.chapters;
+        chapters[index].text = text;
+        this.setState({ chapters });
+    }
+
+    handleChapterHeadingChange(index, heading) {
+        let chapters = this.state.chapters;
+        chapters[index].heading = heading;
+        this.setState({ chapters });
+    }
+
+    renderChapter(chapter, index) {
+        return (
+            <div className="form-add-chapter" key={index} id={`chapter_${index}`}>
+                <h6>
+                    <FormattedMessage id="add-title-chapter" />: 
+                </h6>
+                <Input 
+                type="text"
+                name="chapter"
+                placeholder="Title of chapter"
+                value={chapter.heading}
+                onChange={(event) => { this.handleChapterHeadingChange(index, event.target.value); }}
+                required
+                className="form-input-chapter" />
+
+                <Dropzone onDrop={acceptedFiles => console.log(acceptedFiles)}>
+                {({getRootProps, getInputProps}) => (
+                    <section className="section-dropzone">
+                    <div {...getRootProps()}>
+                        <Input  {...getInputProps()} />
+                        <p>Drag 'n' drop some files here, or click to select files</p>
+                    </div>
+                    </section>
+                )}
+                </Dropzone>
+
+                <h6>
+                    <FormattedMessage id="add-text-chapter" />: 
+                </h6>
+                <MarkdownInput input={chapter.text} onInputChanged={(text) => { this.setMarkdownText(index, text); }} />
+            </div>
         );
+    }
+
+    handleCancel() {
+        this.setState({redirect: '/'});
+    }
+
+    renderContents() {
+        return this.state.chapters.map((chapter, i) => {
+            return (
+                <h4 key={i} className="chapter-heading-contents">
+                    <a href={`#chapter_${i}`} className="chapter-heading-link">
+                        Chapter {i+1}: {chapter.heading}
+                    </a>
+                </h4>
+            );
+        });
     }
 
     render() {
         if (this.state.redirect) {
             return <Redirect to={this.state.redirect} />
         }
-        const { selectedGenre } = this.state;
         return(
             <Row>
                 <Col>
                     <Form 
                     className="form-add-new-story"
                     onSubmit={this.handleSubmit}>
+                        <h6>
+                            <FormattedMessage id="input-add-heading" />: 
+                        </h6>
                         <Input
                         className="form-input-heading"
                         type="text"
                         name="heading"
-                        placeholder="Heading of story"
+                        placeholder="Add title"
                         value={this.state.heading}
                         onChange={this.handleChange}
                         required
                         />
 
+                        <h6>
+                            <FormattedMessage id="input-add-description" />: 
+                        </h6>
+                        <Input
+                        className="form-input-description"
+                        type="text"
+                        name="description"
+                        placeholder="Add description of story"
+                        value={this.state.description}
+                        onChange={this.handleChange}
+                        required
+                        />
+
+                        <h6>
+                            <FormattedMessage id="selected-genre" />: 
+                        </h6>
                         <Select
                         className="select-genres"
-                        value={selectedGenre}
-                        onChange={this.handleSelect}
-                        options={genres}
+                        onChange={this.handleSelectGenre}
+                        options={
+                            this.state.genres.map(genre => {
+                                return {
+                                    label: genre.name,
+                                    value: genre
+                                };
+                            })
+                        }
+                        placeholder="Choose genre"
                         />
 
-                        <Select
-                        isMulti
-                        name="tags"
-                        options={tags}
-                        className="basic-multi-select"
-                        classNamePrefix="Tags"
-                        />
+                        <h6>
+                            <FormattedMessage id="add-tags" />: 
+                        </h6>
+                        <div className="selected-tags">
+                            {this.state.selectedTags.map((tag, i) => {
+                                return <div key={i} className="tag">
+                                    <div>
+                                        {tag}
+                                    </div>
+                                    <div>
+                                        <i className="fa fa-close" aria-hidden="true" onClick={() => {
+                                            this.handleDeleteTag(i);
+                                        }}></i>
+                                    </div>
+                                </div>;
+                            })}
+                        </div>
+                        <Row className="add-tags">
+                            <Col>
+                                <Input
+                                className="form-input-tag"
+                                type="text"
+                                name="newTag"
+                                placeholder="Enter your tag"
+                                value={this.state.newTag}
+                                onChange={this.handleChange}
+                                />
+                            </Col>
+                            <Col className="col-add-new-tag">
+                                <Button 
+                                className="form-btn-add-new-tag"
+                                type="button"
+                                onClick={this.addNewTag}
+                                style={{
+                                    backgroundColor: '#88d498',
+                                    border: 'none'
+                                }}>
+                                    <FormattedMessage id="button-add-new-tag" />
+                                </Button>
+                            </Col>
+                        </Row>
 
-                        <Chapter />
+                        <h6>
+                            <FormattedMessage id="contents" />: 
+                        </h6>
+                        <Col xs={12} md={6} className="form-contents">
+                            {this.renderContents()}
+                        </Col>
+
+                        {this.state.chapters.map((chapter, i) => this.renderChapter(chapter, i))}
+
+                        <Button 
+                            className="form-btn-add-chapter"
+                            type="button"
+                            onClick={this.addChapter}
+                            style={{
+                                backgroundColor: '#88d498',
+                                border: 'none'
+                            }}>
+                                <FormattedMessage id="button-add-chapter" />
+                        </Button>
 
                         <div className="form-btns">
                             <Button 
@@ -120,7 +288,8 @@ export default class AddNewStory extends Component {
                             <Button 
                             className="form-btn-cancel"
                             type="button" 
-                            outline color="secondary">
+                            outline color="secondary"
+                            onClick={this.handleCancel}>
                                 <FormattedMessage id="button-cancel" />
                             </Button>
                         </div>

@@ -1,17 +1,29 @@
 import React from 'react';
-import { FormGroup, Input } from 'reactstrap';
+import { FormGroup, Container } from 'reactstrap';
 import locales from '../locales';
+import './locale.selector.css';
+import Select from 'react-select';
 
-export default function LocaleSelector({locale, onLocaleChange}) {
+export default function LocaleSelector({onLocaleChange}) {
+    const formatLocales = () => {
+        let formattedLocales = [];
+
+        for (let key in locales) {
+            formattedLocales.push(locales[key]);
+        }
+
+        return formattedLocales;
+    };
+
     return (
-        <div>
-            <FormGroup controlId="exampleForm.ControlSelect1" className="select-language">
-                <Input type="select" onChange={(event) => onLocaleChange(event.target.value)}>
-                    <option value={locales.RU}>Русский</option>
-                    <option value={locales.EN}>English</option>
-                </Input>
+        <Container className="container-setting">
+            <FormGroup className="select-language">
+                <Select
+                onChange={(language) => onLocaleChange(language.value)}
+                placeholder="Choose language"
+                options={formatLocales()}>
+                </Select>
             </FormGroup>
-            <div>{locale}</div>
-        </div>
+        </Container>
     );
 }

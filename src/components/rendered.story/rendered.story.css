@@ -1,5 +1,6 @@
-.form-story {
-    padding: 10px 10px 10px 10px;
+.container-story {
+    background-color: #ffffff;
+    padding: 15px;
     margin-bottom: 10px;
     border: 1px solid #d3d3d3;
 }
@@ -8,14 +9,40 @@
     display: inline;
 }
 
-.btn-lg {
-    float: right;
+.heading, .heading:hover {
+    color: #114b5f;
+    text-decoration: none;
 }
 
 .tools {
+    text-align: end;
+}
+
+.tool-bar {
     text-align: center;
+}
+
+.fa-trash {
+    color: #114b5f;
+}
+
+.fa-pencil {
+    color: #114b5f;
 }
 
 .fa-star {
     margin-right: 4px;
+    color: #000000;
+    -webkit-text-fill-color: #ffffff;
+    -webkit-text-stroke-width: 1px;
+    -webkit-text-stroke-color: #000000;
+}
+
+.fa-comments, .fa-comments:hover {
+    color: #114b5f;
+}
+
+.user-info {
+    display: flex;
+    flex-direction: row;
 }

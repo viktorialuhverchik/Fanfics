@@ -1,6 +1,21 @@
 .form-search {
     display: inline;
+    justify-content: center;
+    align-items: center;
+    
 }
 
 .form-btn-search {
+    width: 38px;
+    height: 38px;
+    border: 0px;
+    border-radius: 50%;
+    outline: none;
+    justify-content: center;
+    align-items: center;
+}
+
+.fa-search {
+    color: #114b5f;
+    margin-bottom: 5px;
 }

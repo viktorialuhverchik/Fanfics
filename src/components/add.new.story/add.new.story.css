@@ -1,40 +1,91 @@
 .form-add-new-story {
+    background-color: #ffffff;
     display: flex;
     flex-direction: column;
     justify-content: start;
     align-items: start; 
-    padding: 10px 10px 10px 10px;
+    padding: 15px;
     border: 1px solid #d3d3d3;
 }
 
 .form-input-heading {
     height: 40px;
-    width: 70%;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
 }
 
-.form-input-tags {
+.form-input-description {
     height: 40px;
+    margin-bottom: 20px;
+}
+
+.select-genres {
+    width: 200px;
+    margin-bottom: 20px;
+}
+
+.form-input-tag {
+    width: 200px;
+    height: 40px;
+}
+
+.selected-tags {
+    width: 100%;
+    height: 40px;
+    border: 1px solid #d3d3d3;
+    border-radius: 0.25rem;
+    padding: 10px;
+    margin-bottom: 10px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    overflow-x: auto;
+}
+
+.tag {
+    display: flex;
+    flex-direction: row;
+    background-color: #d3d3d3;
+    border-radius: 0.25rem;
+    margin-right: 20px;
+    padding: 2px 5px;
+}
+
+.col-add-new-tag {
+    padding: 0px !important;
+}
+
+.form-btn-add-new-tag {
+    height: 36px;
+    margin-bottom: 20px;
+    margin-left: 5px;
+}
+
+.form-add-chapter {
+    margin-bottom: 10px;
+    width: 100%;
+}
+
+.form-btn-add-chapter {
+    height: 40px;
+    margin-bottom: 20px;
+}
+
+.form-input-chapter {
     margin-bottom: 10px;
 }
 
 .form-btn-add-story {
     height: 40px;
-    margin-top: 10px;
 }
 
 .form-btn-cancel {
     margin-left: 5px;
-    margin-top: 10px;
     height: 40px;
 }
 
-.select-genres {
-    width: 200px;
-    margin-bottom: 10px;
-}
-
-.basic-multi-select {
-    width: 200px;
-    margin-bottom: 10px;
-}
+.chapter-heading-link, .chapter-heading-link:hover{
+    color: #114b5f;
+    margin-top: 5px;
+    font-size: 20px;
+    text-decoration: none;
+} 

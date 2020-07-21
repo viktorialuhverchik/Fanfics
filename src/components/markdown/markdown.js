@@ -17,7 +17,7 @@ export default function MarkdownInput({ input, onInputChanged }) {
     return (
         <>
             <div>
-                <ReactMarkdown source={input} />
+                <ReactMarkdown className="markdown-input-header" source={input} />
             </div>
             <div>
                 <ReactMde
@@ -25,6 +25,7 @@ export default function MarkdownInput({ input, onInputChanged }) {
                     onChange={onInputChanged}
                     selectedTab={selectedTab}
                     onTabChange={setSelectedTab}
+                    className="markdown-input"
                     generateMarkdownPreview={markdown =>
                         Promise.resolve(converter.makeHtml(markdown))
                     }

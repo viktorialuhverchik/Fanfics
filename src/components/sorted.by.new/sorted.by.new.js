@@ -4,7 +4,7 @@ import { Row, Col, Button } from 'reactstrap';
 import RenderedStory from '../rendered.story/rendered.story';
 import storyService from '../../services/story.service';
 
-export default class SortedByRating extends Component {
+export default class SortedByNew extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -26,21 +26,21 @@ export default class SortedByRating extends Component {
 
     render() {
         return (
-                <Row>
-                    <Col>
-                        {/* <Button 
-                            className="form-btn-add-story"
-                            type="button"
-                            outline
-                            color="primary"
-                            onClick={() => {
-                                this.getStories('rating');
-                            }}>
-                                <FormattedMessage id="sorted-by-new" />
-                        </Button> */}
-                            { this.state.stories.map(item => <RenderedStory key={item.id} story={item} />) }
-                    </Col>
-                </Row>
+            <Row>
+                <Col>
+                    <Button 
+                        className="form-btn-add-story"
+                        type="button"
+                        outline
+                        color="primary"
+                        onClick={() => {
+                            this.getStories('rating');
+                        }}>
+                            <FormattedMessage id="sorted-by-new" />
+                    </Button>
+                        { this.state.stories.map(item => <RenderedStory key={item.id} story={item} />) }
+                </Col>
+            </Row>
         );
     }
 }

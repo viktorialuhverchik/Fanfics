@@ -1,0 +1,62 @@
+h6 {
+    color: #114b5f;
+}
+
+.container-page-story {
+    background-color: #ffffff;
+    padding: 15px;
+    margin-bottom: 10px;
+    border: 1px solid #d3d3d3;
+}
+
+.heading {
+    color: #114b5f;
+}
+
+.fa-heart {
+    color: #000000;
+    -webkit-text-fill-color: #ffffff;
+    -webkit-text-stroke-width: 1px;
+    -webkit-text-stroke-color: #000000;
+}
+
+.fa-heart .active {
+    color: #e41515;
+    -webkit-text-fill-color: #ffffff;
+    -webkit-text-stroke-width: 1px;
+    -webkit-text-stroke-color: #000000;
+}
+
+.tag-name {
+    background-color: #d3d3d3;
+    border-radius: 0.25rem;
+    padding: 2px 5px;
+    margin-right: 10px;
+}
+
+.form-contents {
+    border: 1px solid #d3d3d3;
+    border-radius: 0.25rem;
+    margin-bottom: 10px;
+}
+
+.chapter-heading {
+    color: #114b5f;
+}
+
+.chapter-text {
+    margin-left: 15px;
+    color: #114b5f;
+}
+
+.chapter-heading-contents {
+    display: flex;
+    justify-content: center;
+}
+
+.chapter-heading-link, .chapter-heading-link:hover{
+    color: #114b5f;
+    margin-top: 5px;
+    font-size: 20px;
+    text-decoration: none;
+} 

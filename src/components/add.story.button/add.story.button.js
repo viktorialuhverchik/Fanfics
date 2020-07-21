@@ -1,21 +1,40 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { Component } from 'react';
+import { Redirect } from 'react-router-dom'; 
 import { FormattedMessage } from 'react-intl';
-import Button from 'react-bootstrap/Button';
+import { Container, Button } from 'reactstrap';
+import './add.story.button.css';
 
-const AddStoryButton = () => {
-    return (
-        <div>
-            <Link to={"/addnewstory"}>
-            <Button 
-            style={{
-                backgroundColor: '#1a936f',
-                border: 'none'
-            }}>
-                <FormattedMessage id="button-add-story" />
-            </Button>
-            </Link>
-        </div>
-    );
+export default class AddStoryButton extends Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            redirect: null
+        };
+
+    this.handleClick = this.handleClick.bind(this);
+    }
+
+    handleClick() {
+        this.setState({redirect: '/addnewstory'});
+    }
+
+    render() {
+        if (this.state.redirect) {
+            return <Redirect to={this.state.redirect} />
+        }
+        return (
+            <Container className="container-add-story-btn">
+                <Button 
+                className="add-story-btn"
+                onClick={this.handleClick}
+                style={{
+                    backgroundColor: '#1a936f',
+                    border: 'none'
+                }}>
+                    <FormattedMessage id="button-add-story" />
+                </Button>
+            </Container>
+        );
+    }
 }
-export default AddStoryButton;

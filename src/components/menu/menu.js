@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import userService from '../../services/user.service';
 import Login from '../login/login';
 import Signup from '../signup/signup';
 import AddStoryButton from '../add.story.button/add.story.button';
@@ -10,22 +9,42 @@ export default class Menu extends Component {
         super(props);
 
         this.state = {
-            users: []
+            users: [],
+            shownAuthBlock: 'login'
         };
+
+        this.toggleAuthBlock = this.toggleAuthBlock.bind(this);
     }
 
     async componentDidMount() {
-        
+        const token = localStorage.getItem('token');
+        if (token) {
+            this.setState({ shownAuthBlock: null });
+        }
+    }
+
+    toggleAuthBlock(shownAuthBlock) {
+        this.setState({ shownAuthBlock });
     }
 
     render() {
+        const shownAuthBlock = this.state.shownAuthBlock;
+        let authBlock;
+
+        if (shownAuthBlock === 'login') {
+            authBlock = <Login onBlockHide={this.toggleAuthBlock} />;
+        }
+
+        if (shownAuthBlock === 'signup') {
+            authBlock = <Signup onBlockHide={this.toggleAuthBlock} />;
+        }
+
         return (
-        <div>
-            {/* <Login />
-            <Signup /> */}
-            <AddStoryButton />
-            <Tags />
-        </div>
+            <div>
+                { authBlock }
+                <AddStoryButton />
+                <Tags />
+            </div>
         );
     }
 }

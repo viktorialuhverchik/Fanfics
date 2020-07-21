@@ -1,5 +1,6 @@
 .form-user {
-    padding: 10px 10px 10px 10px;
+    background-color: #ffffff;
+    padding: 15px;
     margin-bottom: 10px;
     border: 1px solid #d3d3d3;
 }
@@ -7,10 +8,9 @@
 .icon {
     width: 150px;
     height: 150px;
-    border: 1px solid #000000;
+    background-color: #ffffff;
     border-radius: 100%;
-    margin-left: 10px;
-    margin-bottom: 20px;
+    border: 1px solid #d3d3d3;
 }
 
 .inline-edit-input {

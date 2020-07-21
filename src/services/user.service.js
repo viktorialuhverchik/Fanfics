@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export default {
-    async getProfiles() {
+    async getUsers() {
         const token = localStorage.getItem('token');
         return axios({
             method: 'GET',
@@ -13,7 +13,7 @@ export default {
         })
         .then(response => response.data);
     },
-    deleteProfiles(users) {
+    deleteUsers(users) {
         const token = localStorage.getItem('token');
 
         return axios({
@@ -29,7 +29,7 @@ export default {
         })
         .then(response => response.data)
     },
-    blockAndUnblockProfiles(users, command) {
+    blockAndUnblockUsers(users, command) {
         const token = localStorage.getItem('token');
         return axios({
             method: 'PUT',

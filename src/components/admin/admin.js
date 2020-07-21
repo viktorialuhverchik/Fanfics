@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom'; 
-import { Table, Button, Input } from 'reactstrap';
+import { Container, Row, Col, Table, Button, Input } from 'reactstrap';
 import userService from '../../services/user.service';
+import './admin.css';
 
-export default class Users extends Component {
+export default class Admin extends Component {
     constructor() {
         super();
 
@@ -24,7 +25,7 @@ export default class Users extends Component {
             return (
                 <tr key={user.id}>
                     <th scope="row">
-                        <Input className="input"
+                        <Input className="input-checkbox"
                                 type="checkbox"
                                 onChange={(event) => { this.handleChange(user.id, event); }}
                                 checked={user.isSelected} />
@@ -86,7 +87,7 @@ export default class Users extends Component {
         });
 
         try {
-            const result = userService.blockAndUnblockProfiles(usersForBlock, 'block');
+            const result = userService.blockAndUnblockUsers(usersForBlock, 'block');
             console.log(result);
             let email = localStorage.getItem('email');
             let currentUser = usersForBlock.find(user => user.email === email);
@@ -148,7 +149,7 @@ export default class Users extends Component {
         });
 
         try {
-            const result = userService.deleteUser(usersForDelete);
+            const result = userService.deleteUsers(usersForDelete);
             console.log(result);
             let email = localStorage.getItem('email');
             let currentUser = usersForDelete.find(user => user.email === email);
@@ -179,52 +180,55 @@ export default class Users extends Component {
             return <Redirect to={this.state.redirect} />
         }
         return (
-            <div>
-                <h1>Users</h1>
-                <div>
-                    <Button
-                    className="btn"
-                    onClick={this.blockUser}
-                    style={{
-                        backgroundColor: '#1a936f',
-                        border: 'none'
-                    }}>
-                    Block
-                    </Button>
-                    <Button
-                    className="btn"
-                    onClick={this.unblockUser}
-                    style={{
-                        backgroundColor: '#1a936f',
-                        border: 'none'
-                    }}>
-                    Unblock
-                    </Button>
-                    <Button
-                    className="btn-trash btn"
-                    onClick={this.deleteUser}
-                    style={{
-                        backgroundColor: '#1a936f',
-                        border: 'none'
-                    }}>
-                        <i className="fa fa-trash"></i>
-                    </Button>
-                </div>
-                <Table>
-                    <thead>
-                        <tr>
-                        <th><Input className="input-all" type="checkbox" onChange={this.handleChangeAll} /></th>
-                        <th>id</th> 
-                        <th>Name</th>
-                        <th>Email</th>
-                        <th className="status">Status</th>
-                        </tr>
-                    </thead>
-                    <tbody> 
-                        { users }
-                    </tbody>
-                </Table>
-            </div>
+            <Row>
+                <Col>
+                    <Container className="container-users">         
+                        <Row className="table-tools">
+                            <Button
+                            className="btn"
+                            onClick={this.blockUser}
+                            style={{
+                                backgroundColor: '#1a936f',
+                                border: 'none'
+                            }}>
+                            Block
+                            </Button>
+                            <Button
+                            className="btn"
+                            onClick={this.unblockUser}
+                            style={{
+                                backgroundColor: '#1a936f',
+                                border: 'none'
+                            }}>
+                            Unblock
+                            </Button>
+                            <Button
+                            className="btn-trash btn"
+                            onClick={this.deleteUser}
+                            style={{
+                                backgroundColor: '#1a936f',
+                                border: 'none'
+                            }}>
+                                <i className="fa fa-trash"></i>
+                            </Button>
+                        </Row>
+                        <Table>
+                            <thead className="table-header">
+                                <tr>
+                                <th className="input-all"><Input type="checkbox" onChange={this.handleChangeAll} /></th>
+                                <th>id</th> 
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th className="status">Status</th>
+                                </tr>
+                            </thead>
+                            <tbody> 
+                                { users }
+                            </tbody>
+                        </Table>
+                    </Container>
+                </Col>
+            </Row>
         )
     }
 }

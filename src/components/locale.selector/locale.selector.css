@@ -1,0 +1,14 @@
+.container-setting {
+    background-color: #ffffff;
+    padding: 15px;
+    margin-bottom: 10px;
+    border: 1px solid #d3d3d3;
+}
+
+.container-setting.dark-theme {
+    background-color: #5b5656;
+}
+
+.form-group {
+    margin-bottom: 0 !important;
+}

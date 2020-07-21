@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import {Link, Redirect } from 'react-router-dom'; 
+import { Redirect } from 'react-router-dom'; 
 import { Form, Button, Input } from 'reactstrap';
 import { FormattedMessage } from 'react-intl';
-import '../login/login.css';
+import './signup.css';
 import authService from '../../services/auth.service';
 
 export default class Signup extends Component {
@@ -17,14 +17,20 @@ export default class Signup extends Component {
             redirect: null
         };
 
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleChange = this.handleChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleClick = this.handleClick.bind(this);
+        this.onBlockHide = props.onBlockHide;
     }
 
     handleChange(event) {
         this.setState({
             [event.target.name]: event.target.value
         });
+    }
+
+    handleClick() {
+        this.onBlockHide('login');
     }
 
     async handleSubmit(event) {
@@ -45,57 +51,58 @@ export default class Signup extends Component {
             return <Redirect to={this.state.redirect} />
         }
         return(
-            <div>
-                <Form 
-                className='form'
-                onSubmit={this.handleSubmit}>
-                    <p>
-                        <FormattedMessage id="signup" />
-                    </p>
-                    <Input
-                    className='form-input'
-                    type="name"
-                    name="name"
-                    placeholder="Username"
-                    value={this.state.name}
-                    onChange={this.handleChange}
-                    required
-                    />
+            <Form 
+            className='form-signup'
+            onSubmit={this.handleSubmit}>
+                <p>
+                    <FormattedMessage id="signup" />
+                </p>
+                <Input
+                className='form-input'
+                type="name"
+                name="name"
+                placeholder="Username"
+                value={this.state.name}
+                onChange={this.handleChange}
+                required
+                />
 
-                    <Input
-                    className='form-input'
-                    type="email"
-                    name="email"
-                    placeholder="E-mail"
-                    value={this.state.email}
-                    onChange={this.handleChange}
-                    required
-                    />
+                <Input
+                className='form-input'
+                type="email"
+                name="email"
+                placeholder="E-mail"
+                value={this.state.email}
+                onChange={this.handleChange}
+                required
+                />
 
-                    <Input
-                    className='form-input'
-                    type="password"
-                    name="password"
-                    placeholder="Password"
-                    value={this.state.password}
-                    onChange={this.handleChange}
-                    required
-                    />
+                <Input
+                className='form-input'
+                type="password"
+                name="password"
+                placeholder="Password"
+                value={this.state.password}
+                onChange={this.handleChange}
+                required
+                />
 
-                    <Button
-                    className='form-btn'
-                    type="submit" 
-                    outline color="primary">
-                        <FormattedMessage id="button-signup" />
-                    </Button>
+                <Button
+                className='form-btn'
+                type="submit" 
+                style={{
+                    backgroundColor: '#1a936f',
+                    border: 'none'
+                }}>
+                    <FormattedMessage id="button-signup" />
+                </Button>
 
-                    <Link 
-                    className='form-link'
-                    to={"/login"}>  
-                        <FormattedMessage id="login" />
-                    </Link>                  
-                </Form>
-            </div>
+                <button 
+                className='form-toggle-block'
+                onClick={this.handleClick}>
+                    <FormattedMessage id="login" />
+                </button>                  
+            </Form>
         );
     }
 }

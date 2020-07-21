@@ -5,10 +5,20 @@
     "signup": "Регистрация",
     "button-signup": "Создать аккаунт",
     "button-login": "Войти",
+    "button-logout": "Выйти",
     "button-add-story": "Добавить новый рассказ",
     "button-cancel": "Отмена",
     "button-add-comment": "Добавить",
     "sorted-by-new": "Новое",
     "sorted-by-rating": "Популярное",
-    "button-add-chapter": "Добавить главу"
+    "input-add-heading": "Название",
+    "input-add-description": "Краткое описание",
+    "selected-genre": "Выберите жанр",
+    "add-tags": "Добавьте несколько тегов",
+    "add-title-chapter": "Название главы",
+    "add-text-chapter": "Текст главы",
+    "button-add-chapter": "Добавить главу",
+    "button-add-new-tag": "Добавить тег",
+    "contents": "Оглавление",
+    "genre": "Жанр"
 }

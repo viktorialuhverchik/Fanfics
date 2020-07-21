@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-import { Col, Row } from 'reactstrap';
-import { FormattedMessage } from 'react-intl';
 import RenderedStory from '../rendered.story/rendered.story';
 import storyService from '../../services/story.service';
 

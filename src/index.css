@@ -1,5 +1,6 @@
 body {
   margin: 0;
+  background-color: #f3e9d2;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
@@ -10,4 +11,60 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+body.dark-theme,
+body.dark-theme .form-btn-cancel,
+body.dark-theme .mde-header,
+body.dark-theme .grip {
+  background-color: #4d4646;
+}
+
+body.dark-theme p,
+body.dark-theme h1,
+body.dark-theme h4,
+body.dark-theme h6,
+body.dark-theme i,
+body.dark-theme .form-toggle-block,
+body.dark-theme .tag-link,
+body.dark-theme .inline-edit-label,
+body.dark-theme .chapter-heading-link,
+body.dark-theme .chapter-heading-link:hover,
+body.dark-theme .chapter-text {
+  color: #f3e9d2;
+}
+
+body.dark-theme .form-signup,
+body.dark-theme .form-login,
+body.dark-theme .form-add-new-story,
+body.dark-theme .form-user,
+body.dark-theme .container-story,
+body.dark-theme .container-setting,
+body.dark-theme .container-add-story-btn,
+body.dark-theme .container-tags,
+body.dark-theme .container-page-story,
+body.dark-theme .container-users,
+body.dark-theme .form-comments,
+body.dark-theme .mde-text {
+  background-color: #5b5656;
+}
+
+body.dark-theme .form-input,
+body.dark-theme .form-input-heading,
+body.dark-theme .form-input-description,
+body.dark-theme .css-yk16xz-control,
+body.dark-theme .css-tlfecz-indicatorContainer,
+body.dark-theme .form-input-search,
+body.dark-theme .form-input-tag,
+body.dark-theme .form-input-chapter,
+body.dark-theme .form-input-comment,
+body.dark-theme .user-icon,
+body.dark-theme .icon {
+  background-color: #aca3a3;
+}
+
+
+body.dark-theme .form-btn-search {
+  background-color: #aca3a3;
+  border: 0.5px solid #d3d3d3;
 }

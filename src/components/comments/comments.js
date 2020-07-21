@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
-import { Form, Button, Input, Row, Col } from 'reactstrap';
+import { Form, Button, Input } from 'reactstrap';
 import { FormattedMessage } from 'react-intl';
+import './comments.css';
 
 export default class Comments extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
+            comments: [],
             comment: ""
         }
         this.handleChange = this.handleChange.bind(this);
@@ -28,36 +30,32 @@ export default class Comments extends Component {
     }
     render() {
         return (
-            <Row>
-                <Col>
-                    <Form
-                    onSubmit={this.handleSubmit}
-                    className="form-comments">
-                        <Input
-                        type="text"
-                        placeholder="What are you thinking about this story?"
-                        onChange={this.handleChange}
-                        value={this.state.comment}
-                        />
-                        <Button
-                        className="form-btn-comments"
-                        type="submit"
-                        style={{
-                            backgroundColor: '#1a936f',
-                            border: 'none'
-                        }}
-                        >
-                            <FormattedMessage id="button-add-comment" />
-                        </Button>
-                        <Button 
-                            className="form-btn-cancel"
-                            type="button" 
-                            outline color="secondary">
-                                <FormattedMessage id="button-cancel" />
-                        </Button>
-                    </Form>
-                </Col>
-            </Row>
+            <Form
+            onSubmit={this.handleSubmit}
+            className="form-comments">
+                <div className="comment">
+                    {this.state.comments.map(item => item)}
+                </div>
+                <Input
+                type="text"
+                placeholder="What are you thinking about this story?"
+                className="form-input-comment"
+                onChange={this.handleChange}
+                value={this.state.comment}
+                />
+                <div className="form-btns">
+                    <Button
+                    className="form-btn-comments"
+                    type="submit"
+                    style={{
+                        backgroundColor: '#1a936f',
+                        border: 'none'
+                    }}
+                    >
+                        <FormattedMessage id="button-add-comment" />
+                    </Button>
+                </div>
+        </Form>
         );
     }
 }
