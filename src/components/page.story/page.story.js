@@ -80,7 +80,7 @@ export default class PageStory extends Component {
         return story.chapters.map((chapter, i) => {
             return (
                 <h4 key={i} className="chapter-heading-contents">
-                    <a href={`#chapter_${i}`} className="chapter-heading-link">
+                    <a href={`#chapter_${chapter.id}`} className="chapter-heading-link">
                         Chapter {i+1}: {chapter.heading}
                     </a>
                 </h4>
