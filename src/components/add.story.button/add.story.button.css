@@ -14,6 +14,11 @@
 }
 
 .add-story-link, .add-story-link:hover {
+    width: 100%;
     color: #f3e9d2;
     text-decoration: none;
+}
+
+.add-story-btn-disabled {
+    width: 100%;
 }

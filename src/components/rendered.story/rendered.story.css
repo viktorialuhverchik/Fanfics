@@ -46,3 +46,11 @@
     display: flex;
     flex-direction: row;
 }
+
+.user-name {
+    font-size: small;
+}
+
+.update-date {
+    font-size: small;
+}

@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
+import { Redirect } from 'react-router-dom'; 
 import { FormattedMessage } from 'react-intl';
 import { Row, Col } from 'reactstrap';
 import { Link } from "react-router-dom";
 import SearchPanel from '../search.panel/search.panel';
+import userService from '../../services/user.service';
 import './header.css';
 
 export default class Header extends Component {
@@ -10,7 +12,6 @@ export default class Header extends Component {
         super(props);
 
         this.state = {
-            isActive: false
         };
 
         this.handleClickNew = this.handleClickNew.bind(this);
@@ -18,38 +19,25 @@ export default class Header extends Component {
     }
 
     handleClickNew() {
-        const sortByRating = document.getElementsByClassName("sorted-by-rating");
-        const sortByNew = document.getElementsByClassName("sorted-by-new");
-        sortByNew.classList.add("active");
-        sortByRating.classList.remove("active");
-        this.setState({ isActive: true });
     }
 
     handleClickRating() {
-        const sortByRating = document.getElementsByClassName("sorted-by-rating");
-        const sortByNew = document.getElementsByClassName("sorted-by-new");
-        sortByRating.classList.add("active");
-        sortByNew.classList.remove("active");
-        this.setState({ isActive: true });
     }
     
     render() {
+        const id = localStorage.getItem("id");
         return (
             <Row className="app-header">
                 <Col xs={12} md={6} className="header-nav-bar">
+                    <Link to="/" className="logo">Fanfics</Link>
                     <Link
-                    to="/"
-                    className="logo">
-                        Fanfics
-                    </Link>
-                    <Link
-                    to="/sortedbynew"
+                    to="/new"
                     className="sorted-by-new"
                     onClick={this.handleClickNew}>
                         <FormattedMessage id="sorted-by-new" />
                     </Link>
                     <Link
-                    to="/sortedbyrating"
+                    to="/popular"
                     className="sorted-by-rating"
                     onClick={this.handleClickRating}>
                         <FormattedMessage id="sorted-by-rating" />
@@ -59,9 +47,9 @@ export default class Header extends Component {
                     <SearchPanel />
                 </Col>
                 <Col>
-                <Link to="/user"className="user-icon-wrapper">
+                    <Link to={`/users/${id}/stories`} className="user-icon-wrapper">
                         <button className="user-icon"></button>
-                </Link>
+                    </Link>
                 </Col>
             </Row>
         );

@@ -12,22 +12,20 @@ export default class SearchPanel extends Component {
             redirect: null
         };
 
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
+    // this.handleChange = this.handleChange.bind(this);
+    // this.handleSubmit = this.handleSubmit.bind(this);
     }
 
-    handleChange(event) {
-        this.setState({
-            [event.target.name]: event.target.value
-        });
-    }
+    // handleChange(event) {
+    //     this.setState({
+    //         [event.target.name]: event.target.value
+    //     });
+    // }
 
     async handleSubmit(event) {
         event.preventDefault();
 
         try {
-            // const result = await searchService.login(this.state.text);
-            // console.log(result);
             localStorage.setItem('text', this.state.text);
             this.setState({redirect: '/searchresult'});
         } catch(error) {
@@ -42,7 +40,7 @@ export default class SearchPanel extends Component {
         }
         return(
             <Form 
-            onSubmit={this.handleSubmit}
+            // onSubmit={this.handleSubmit}
             className="form-search">
                 <Row>
                     <Col xs={12} md={8}className="search-input">
@@ -52,7 +50,7 @@ export default class SearchPanel extends Component {
                         placeholder="Search"
                         className="form-input-search"
                         value={this.state.text}
-                        onChange={this.handleChange}
+                        // onChange={this.handleChange}
                         required
                         />
                     </Col>

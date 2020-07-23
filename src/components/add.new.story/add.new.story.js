@@ -20,8 +20,7 @@ export default class AddNewStory extends Component {
             tags: [],
             selectedTags: [],
             newTag: "",
-            chapters: [{ heading: "", text: "" }], 
-            image: null,
+            chapters: [{ heading: "", text: "", image: "" }], 
             redirect: null
         };
 
@@ -55,7 +54,7 @@ export default class AddNewStory extends Component {
                 );
             this.setState({ 
                 story,
-                redirect: '/user' 
+                redirect: `/`
             });
         } catch(error) {
             console.log(error);
@@ -93,7 +92,7 @@ export default class AddNewStory extends Component {
 
     addChapter() {
         let chapters = this.state.chapters;
-        chapters.push({ heading: "", text: "" });
+        chapters.push({ heading: "", text: "", image: "" });
         this.setState({ chapters });
     }
 
@@ -121,7 +120,6 @@ export default class AddNewStory extends Component {
                 placeholder="Title of chapter"
                 value={chapter.heading}
                 onChange={(event) => { this.handleChapterHeadingChange(index, event.target.value); }}
-                required
                 className="form-input-chapter" />
 
                 <Dropzone onDrop={acceptedFiles => console.log(acceptedFiles)}>
@@ -215,20 +213,6 @@ export default class AddNewStory extends Component {
                         <h6>
                             <FormattedMessage id="add-tags" />: 
                         </h6>
-                        <div className="selected-tags">
-                            {this.state.selectedTags.map((tag, i) => {
-                                return <div key={i} className="tag">
-                                    <div>
-                                        {tag}
-                                    </div>
-                                    <div>
-                                        <i className="fa fa-close" aria-hidden="true" onClick={() => {
-                                            this.handleDeleteTag(i);
-                                        }}></i>
-                                    </div>
-                                </div>;
-                            })}
-                        </div>
                         <Row className="add-tags">
                             <Col>
                                 <Input
@@ -253,6 +237,20 @@ export default class AddNewStory extends Component {
                                 </Button>
                             </Col>
                         </Row>
+                        <div className="selected-tags">
+                            {this.state.selectedTags.map((tag, i) => {
+                                return <div key={i} className="tag">
+                                    <div>
+                                        {tag}
+                                    </div>
+                                    <div>
+                                        <i className="fa fa-close" aria-hidden="true" onClick={() => {
+                                            this.handleDeleteTag(i);
+                                        }}></i>
+                                    </div>
+                                </div>;
+                            })}
+                        </div>
 
                         <h6>
                             <FormattedMessage id="contents" />: 

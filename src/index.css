@@ -16,12 +16,16 @@ code {
 body.dark-theme,
 body.dark-theme .form-btn-cancel,
 body.dark-theme .mde-header,
-body.dark-theme .grip {
+body.dark-theme .grip,
+body.dark-theme .container-chapter-story,
+body.dark-theme .form-contents,
+body.dark-theme .form-contents {
   background-color: #4d4646;
 }
 
 body.dark-theme p,
 body.dark-theme h1,
+body.dark-theme h1:hover,
 body.dark-theme h4,
 body.dark-theme h6,
 body.dark-theme i,
@@ -30,7 +34,8 @@ body.dark-theme .tag-link,
 body.dark-theme .inline-edit-label,
 body.dark-theme .chapter-heading-link,
 body.dark-theme .chapter-heading-link:hover,
-body.dark-theme .chapter-text {
+body.dark-theme .chapter-text,
+body.dark-theme td {
   color: #f3e9d2;
 }
 
@@ -45,7 +50,8 @@ body.dark-theme .container-tags,
 body.dark-theme .container-page-story,
 body.dark-theme .container-users,
 body.dark-theme .form-comments,
-body.dark-theme .mde-text {
+body.dark-theme .mde-text,
+body.dark-theme .page-not-found {
   background-color: #5b5656;
 }
 

@@ -28,7 +28,8 @@ export default class RenderedStory extends Component {
 
     render() {
         const story = this.state.story;
-
+        const id = localStorage.getItem("id");
+        
         return (
             <Container className="container-story">
                 <Row>
@@ -61,7 +62,7 @@ export default class RenderedStory extends Component {
                     <Col>
                         <button 
                         type="button" 
-                        className="btn btn-comments"
+                        className="btn btn-lg btn-comments"
                         onClick={this.handleClickComments}>
                             <Link to={"/pagestory"}>
                                 <i className="fa fa-comments" aria-hidden="true"></i>
@@ -71,7 +72,7 @@ export default class RenderedStory extends Component {
                     <Col>
                         <button 
                         type="button" 
-                        className="btn btn-star"
+                        className="btn btn-lg btn-star"
                         onClick={this.handleClickRating}>
                             <i className="fa fa-star"></i>
                             <i className="fa fa-star"></i>
@@ -81,12 +82,12 @@ export default class RenderedStory extends Component {
                         </button>
                     </Col>
                     <Col className="user-info">
-                        <Col>
-                            <p>{story.user.name}</p>
-                            <p>{story.updatedAt}</p>
+                        <Col xs={12} md={6}>
+                            <p className="user-name">{story.user.name}</p>
+                            <p className="update-date">{story.updatedAt}</p>
                         </Col>
-                        <Col>
-                            <Link to="/user"className="user-icon-wrapper">
+                        <Col xs={6} md={4}>
+                            <Link to={`/users/${id}/stories`} className="user-icon-wrapper">
                                 <button className="user-icon"></button>
                             </Link>
                         </Col>

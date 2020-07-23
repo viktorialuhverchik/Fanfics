@@ -6,6 +6,7 @@
     "button-signup": "Создать аккаунт",
     "button-login": "Войти",
     "button-logout": "Выйти",
+    "button-save": "Сохранить",
     "button-add-story": "Добавить новый рассказ",
     "button-cancel": "Отмена",
     "button-add-comment": "Добавить",
@@ -20,5 +21,6 @@
     "button-add-chapter": "Добавить главу",
     "button-add-new-tag": "Добавить тег",
     "contents": "Оглавление",
-    "genre": "Жанр"
+    "genre": "Жанр",
+    "name": "Имя"
 }

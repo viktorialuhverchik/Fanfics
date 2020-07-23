@@ -1,33 +1,31 @@
-import React, { Component } from 'react';
-import { Redirect } from 'react-router-dom'; 
+import React, {useState} from 'react';
 import { FormattedMessage } from 'react-intl';
+import { Link } from 'react-router-dom';
 import { Container, Button } from 'reactstrap';
 import './add.story.button.css';
 
-export default class AddStoryButton extends Component {
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            redirect: null
-        };
-
-    this.handleClick = this.handleClick.bind(this);
-    }
-
-    handleClick() {
-        this.setState({redirect: '/addnewstory'});
-    }
-
-    render() {
-        if (this.state.redirect) {
-            return <Redirect to={this.state.redirect} />
-        }
+const AddStoryButton = (props) => {    
+    if (!props.blocked) {
+        return (
+            <Container className="container-add-story-btn">
+                <Link to="/addnewstory" className="add-story-link">
+                    <Button 
+                    className="add-story-btn"
+                    style={{
+                        backgroundColor: '#1a936f',
+                        border: 'none'
+                    }}>
+                        <FormattedMessage id="button-add-story" />
+                    </Button>
+                </Link>
+            </Container>
+        );
+    } else {
         return (
             <Container className="container-add-story-btn">
                 <Button 
-                className="add-story-btn"
-                onClick={this.handleClick}
+                className="add-story-btn-disabled"
+                disabled='true'
                 style={{
                     backgroundColor: '#1a936f',
                     border: 'none'
@@ -38,3 +36,5 @@ export default class AddStoryButton extends Component {
         );
     }
 }
+
+export default AddStoryButton;

@@ -6,6 +6,7 @@
     "button-signup": "Sign up",
     "button-login": "Log in",
     "button-logout": "Log out",
+    "button-save": "Save",
     "button-add-story": "Add new story",
     "button-cancel": "Cancel",
     "button-add-comment": "Add comment",
@@ -20,6 +21,7 @@
     "button-add-chapter": "Add chapter",
     "button-add-new-tag": "Add tag",
     "contents": "Contents",
-    "genre": "Genre"
+    "genre": "Genre",
+    "name": "Name"
 
 }

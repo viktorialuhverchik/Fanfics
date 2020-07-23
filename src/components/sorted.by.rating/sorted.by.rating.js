@@ -12,8 +12,8 @@ export default class SortedByRating extends Component {
         };
     }
 
-    async getStories(sortBy) {
-        const stories = await storyService.getStories({ sortBy });
+    async getStories() {
+        const stories = await storyService.getStories();
 
         this.setState({ stories });
     }
@@ -26,17 +26,7 @@ export default class SortedByRating extends Component {
         return (
             <Row>
                 <Col>
-                    <Button 
-                        className="form-btn-add-story"
-                        type="button"
-                        outline
-                        color="primary"
-                        onClick={() => {
-                            this.getStories('rating');
-                        }}>
-                            <FormattedMessage id="sorted-by-rating" />
-                    </Button>
-                        { this.state.stories.map(item => <RenderedStory key={item.id} story={item} />) }
+                    { this.state.stories.map(item => <RenderedStory key={item.id} story={item} />) }
                 </Col>
             </Row>
         );

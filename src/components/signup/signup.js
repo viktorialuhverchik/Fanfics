@@ -40,7 +40,8 @@ export default class Signup extends Component {
             const result = await authService.signup(this.state.email, this.state.name, this.state.password);
             console.log(result);
             localStorage.setItem('email', this.state.email);
-            this.setState({redirect: '/user'});
+            this.onBlockHide(null);
+            this.setState({redirect: '/'});
         } catch(error) {
             console.log(error);
         }
@@ -71,7 +72,7 @@ export default class Signup extends Component {
                 className='form-input'
                 type="email"
                 name="email"
-                placeholder="E-mail"
+                placeholder="Email"
                 value={this.state.email}
                 onChange={this.handleChange}
                 required

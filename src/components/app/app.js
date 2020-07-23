@@ -3,7 +3,6 @@ import { Route, Switch } from "react-router-dom";
 import { Col } from 'reactstrap';
 import Header from '../header/header';
 import Menu from '../menu/menu';
-import MainPage from '../main.page/main.page';
 import UserVerify from '../user.verify/user.verify';
 import SortedByNew from '../sorted.by.new/sorted.by.new';
 import SortedByRating from '../sorted.by.rating/sorted.by.rating';
@@ -13,6 +12,7 @@ import AddNewStory from '../add.new.story/add.new.story';
 import PageStory from '../page.story/page.story';
 import SearchResult from '../search.result/search.result';
 import MarkdownPageStory from '../markdown.page.story/markdown.page.story';
+import PageNotFound from '../page.not.found/page.not.found';
 import locales from '../locales';
 import LocaleSelector from '../locale.selector/locale.selector';
 import ThemeSelector from '../theme.selector/theme.selector';
@@ -48,14 +48,15 @@ function App() {
                 <Switch>
                     <Route exact path="/new" component={SortedByNew} />
                     <Route exact path="/popular" component={SortedByRating} />
-                    <Route exact path="/user" component={User} />
+                    <Route exact path="/users/:id/stories" component={User} />
                     <Route exact path="/user-verify/:token" component={UserVerify} />
                     <Route exact path="/admin" component={Admin} />
                     <Route exact path="/addnewstory" component={AddNewStory} />
                     <Route exact path="/pagestory/:storyId" component={PageStory} />
                     <Route exact path="/searchresult" component={SearchResult} />
                     <Route exact path="/markdownpage" component={MarkdownPageStory} />
-                    <Route exact path="/" component={MainPage} />
+                    <Route exact path="/404" component={PageNotFound} />
+                    <Route exact path="/" component={SortedByNew} />
                 </Switch>
             </IntlProvider>
         </div>

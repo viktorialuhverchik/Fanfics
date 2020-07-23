@@ -34,6 +34,12 @@ h6 {
     margin-right: 10px;
 }
 
+.container-chapter-story {
+    border: 1px solid #d3d3d3;
+    border-radius: 0.25rem;
+    margin-bottom: 10px;
+}
+
 .form-contents {
     border: 1px solid #d3d3d3;
     border-radius: 0.25rem;
@@ -41,6 +47,7 @@ h6 {
 }
 
 .chapter-heading {
+    margin-top: 8px;
     color: #114b5f;
 }
 
@@ -60,3 +67,15 @@ h6 {
     font-size: 20px;
     text-decoration: none;
 } 
+
+.user-name {
+    font-size: small;
+}
+
+.update-date {
+    font-size: small;
+}
+
+.tool-bar {
+    margin-top: 10px;
+}

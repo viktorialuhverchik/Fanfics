@@ -5,7 +5,7 @@ export default {
         return axios({
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
-            url: 'http://192.168.0.12:3000/api/auth/login',
+            url: 'https://fanfics-backend.herokuapp.com/api/auth/login',
             data: {
               email,
               password
@@ -13,7 +13,8 @@ export default {
         })
         .then(response => {
             localStorage.setItem('token', response.data.token);
-            
+            localStorage.setItem('id', response.data.id);
+
             return response.data;
         });
     }, 
@@ -21,7 +22,7 @@ export default {
         return axios({
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
-            url: 'http://192.168.0.12:3000/api/auth/register',
+            url: 'https://fanfics-backend.herokuapp.com/api/auth/register',
             data: {
               email,
               name,
@@ -30,6 +31,8 @@ export default {
         })
         .then(response => {
           localStorage.setItem('token', response.data.token);
+          localStorage.setItem('id', response.data.id);
+          
           return response.data;
         });
     }    

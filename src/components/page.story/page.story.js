@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import { Link } from 'react-router-dom';
 import { Container, Row, Col } from 'reactstrap';
 import { FormattedMessage } from 'react-intl';
-import ScrollspyNav from 'react-scrollspy-nav';
 import storyService from '../../services/story.service';
 import Comments from '../comments/comments';
 import './page.story.css';
@@ -23,7 +22,6 @@ export default class PageStory extends Component {
     }
 
     async componentWillMount() {
-        console.log('storyId', this.state.storyId);
         const story = await storyService.getStoryById(this.state.storyId);
         this.setState({story});
     }
@@ -40,39 +38,39 @@ export default class PageStory extends Component {
         const story = this.state.story;
         return story.chapters.map(chapter => {
             return (
-                <div>
-                <Row>
-                    <Col xs={12} md={8} className="chapter">
-                        <h4
-                        key={chapter.id}
-                        id={`chapter_${chapter.id}`}
-                        className="chapter-heading">
-                            {chapter.heading}
-                        </h4>
-                    </Col>
-                    <Col xs={6} md={4} className="tools">
-                        <button className="btn btn-lg active">
-                            <i className="fa fa-trash" aria-hidden="true"></i>
-                        </button>
-                        <Link to={"/markdownpage"} className="btn btn-lg active">
-                            <i className="fa fa-pencil" aria-hidden="true"></i>
-                        </Link>
-                    </Col>
-                </Row>
-                <Row>
-                    <span className="chapter-text">{chapter.text}</span>
-                </Row>
-                <Row>
-                    <Col>
-                        <button 
-                        type="button" 
-                        className="btn btn-lg btn-heart"
-                        onClick={this.handleClickLike}>
-                            <i className="fa fa-heart"></i>
-                        </button>
-                    </Col>
-                </Row>
-                </div>
+                <Container className="container-chapter-story">
+                    <Row>
+                        <Col xs={12} md={8} className="chapter">
+                            <h4
+                            key={chapter.id}
+                            id={`chapter_${chapter.id}`}
+                            className="chapter-heading">
+                                {chapter.heading}
+                            </h4>
+                        </Col>
+                        <Col xs={6} md={4} className="tools">
+                            <button className="btn btn-lg active">
+                                <i className="fa fa-trash" aria-hidden="true"></i>
+                            </button>
+                            <Link to={"/markdownpage"} className="btn btn-lg active">
+                                <i className="fa fa-pencil" aria-hidden="true"></i>
+                            </Link>
+                        </Col>
+                    </Row>
+                    <Row>
+                        <span className="chapter-text">{chapter.text}</span>
+                    </Row>
+                    <Row>
+                        <Col>
+                            <button 
+                            type="button" 
+                            className="btn btn-lg btn-heart"
+                            onClick={this.handleClickLike}>
+                                <i className="fa fa-heart"></i>
+                            </button>
+                        </Col>
+                    </Row>
+                </Container>
             );
         });
     }
@@ -92,6 +90,7 @@ export default class PageStory extends Component {
 
     render() {
         const story = this.state.story;
+        const id = localStorage.getItem("id");
 
         if (!story) {
             return (
@@ -112,7 +111,7 @@ export default class PageStory extends Component {
                         <h1 className="heading">{story.heading}</h1>
                         <div>
                         <p key={story.genre.id}>
-                            <FormattedMessage id="genre" /> {story.genre.name}
+                            <FormattedMessage id="genre" />: {story.genre.name}
                         </p>
 
                         <Col xs={12} md={6} className="form-contents">
@@ -138,12 +137,12 @@ export default class PageStory extends Component {
                                 </button>
                             </Col>
                             <Col className="user-info">
-                                <Col>
-                                    <p>{story.user.name}</p>
-                                    <p>{story.updatedAt}</p>
+                                <Col xs={12} md={6}>
+                                    <p className="user-name">{story.user.name}</p>
+                                    <p className="update-date">{story.updatedAt}</p>
                                 </Col>
-                                <Col>
-                                    <Link to="/user"className="user-icon-wrapper">
+                                <Col xs={4} md={2}>
+                                    <Link to={`/users/${id}/stories`} className="user-icon-wrapper">
                                         <button className="user-icon"></button>
                                     </Link>
                                 </Col>

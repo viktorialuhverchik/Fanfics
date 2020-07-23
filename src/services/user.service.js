@@ -9,10 +9,38 @@ export default {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${token}`
             },
-            url: 'http://192.168.0.12:3000/api/users/all'
+            url: 'https://fanfics-backend.herokuapp.com/api/users/all'
         })
         .then(response => response.data);
     },
+
+    getUserById(id) {
+        localStorage.setItem("id", id);
+        const token = localStorage.getItem('token');
+        return axios({
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+            url: `https://fanfics-backend.herokuapp.com/api/users/${id}`
+        })
+        .then(response => response.data);
+    },
+
+    getStoriesByUserId(id) {
+        const token = localStorage.getItem('token');
+        return axios({
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+        },
+        url: `https://fanfics-backend.herokuapp.com/api/users/${id}/stories`
+    })
+    .then(response => response.data);
+    },
+
     deleteUsers(users) {
         const token = localStorage.getItem('token');
 
@@ -22,7 +50,7 @@ export default {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${token}`
             },
-            url: 'http://192.168.0.12:3000/api/users/delete',
+            url: 'https://fanfics-backend.herokuapp.com/api/users/delete',
             data: {
                 users
             }
@@ -37,7 +65,7 @@ export default {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${token}`
             },
-            url: 'http://192.168.0.12:3000/api/users/update-status',
+            url: 'https://fanfics-backend.herokuapp.com/api/users/update-status',
             data: {
                 users,
                 command

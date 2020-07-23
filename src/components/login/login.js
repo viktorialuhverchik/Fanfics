@@ -36,9 +36,9 @@ export default class Login extends Component {
         event.preventDefault();
 
         try {
-            const result = await authService.login(this.state.email, this.state.password);
-            console.log(result);
+            await authService.login(this.state.email, this.state.password);
             localStorage.setItem('email', this.state.email);
+            this.onBlockHide(null);
             this.setState({redirect: '/'});
         } catch(error) {
             console.log(error);;
@@ -60,7 +60,7 @@ export default class Login extends Component {
                 className="form-input"
                 type="email"
                 name="email"
-                placeholder="E-mail"
+                placeholder="Email"
                 value={this.state.email}
                 onChange={this.handleChange}
                 required

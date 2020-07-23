@@ -28,21 +28,20 @@ export default class Menu extends Component {
     }
 
     render() {
-        const shownAuthBlock = this.state.shownAuthBlock;
         let authBlock;
 
-        if (shownAuthBlock === 'login') {
+        if (this.state.shownAuthBlock === 'login') {
             authBlock = <Login onBlockHide={this.toggleAuthBlock} />;
         }
 
-        if (shownAuthBlock === 'signup') {
+        if (this.state.shownAuthBlock === 'signup') {
             authBlock = <Signup onBlockHide={this.toggleAuthBlock} />;
         }
 
         return (
             <div>
                 { authBlock }
-                <AddStoryButton />
+                <AddStoryButton blocked={!!this.state.shownAuthBlock} />
                 <Tags />
             </div>
         );

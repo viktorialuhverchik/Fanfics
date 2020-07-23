@@ -1,0 +1,7 @@
+.page-not-found {
+    background-color: #f0dbdb;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid #d3d3d3;
+}
