@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { Link } from 'react-router-dom';
 import { Container, Button } from 'reactstrap';
@@ -25,7 +25,7 @@ const AddStoryButton = (props) => {
             <Container className="container-add-story-btn">
                 <Button 
                 className="add-story-btn-disabled"
-                disabled='true'
+                disabled={true}
                 style={{
                     backgroundColor: '#1a936f',
                     border: 'none'

@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
-import { Redirect } from 'react-router-dom'; 
 import { FormattedMessage } from 'react-intl';
 import { Row, Col } from 'reactstrap';
 import { Link } from "react-router-dom";
 import SearchPanel from '../search.panel/search.panel';
-import userService from '../../services/user.service';
 import './header.css';
 
 export default class Header extends Component {

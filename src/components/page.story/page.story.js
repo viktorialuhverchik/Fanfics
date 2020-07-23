@@ -12,7 +12,10 @@ export default class PageStory extends Component {
         
         this.state = {
             storyId: props.match.params.storyId,
-            story: null
+            story: null,
+            like: 0,
+            rating: 0,
+            comments: []
         };
 
 
@@ -90,7 +93,6 @@ export default class PageStory extends Component {
 
     render() {
         const story = this.state.story;
-        const id = localStorage.getItem("id");
 
         if (!story) {
             return (
@@ -142,7 +144,7 @@ export default class PageStory extends Component {
                                     <p className="update-date">{story.updatedAt}</p>
                                 </Col>
                                 <Col xs={4} md={2}>
-                                    <Link to={`/users/${id}/stories`} className="user-icon-wrapper">
+                                    <Link to={`/users/${story.user.id}/stories`} className="user-icon-wrapper">
                                         <button className="user-icon"></button>
                                     </Link>
                                 </Col>

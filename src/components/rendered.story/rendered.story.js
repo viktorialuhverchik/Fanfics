@@ -28,7 +28,6 @@ export default class RenderedStory extends Component {
 
     render() {
         const story = this.state.story;
-        const id = localStorage.getItem("id");
         
         return (
             <Container className="container-story">
@@ -64,7 +63,7 @@ export default class RenderedStory extends Component {
                         type="button" 
                         className="btn btn-lg btn-comments"
                         onClick={this.handleClickComments}>
-                            <Link to={"/pagestory"}>
+                            <Link to={`/pagestory/${story.id}/comments`}>
                                 <i className="fa fa-comments" aria-hidden="true"></i>
                             </Link>
                         </button>
@@ -87,7 +86,7 @@ export default class RenderedStory extends Component {
                             <p className="update-date">{story.updatedAt}</p>
                         </Col>
                         <Col xs={6} md={4}>
-                            <Link to={`/users/${id}/stories`} className="user-icon-wrapper">
+                            <Link to={`/users/${story.user.id}/stories`} className="user-icon-wrapper">
                                 <button className="user-icon"></button>
                             </Link>
                         </Col>
