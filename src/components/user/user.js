@@ -65,9 +65,9 @@ export default class User extends Component {
                                 <div className="inline-edit">
                                     <Input
                                     className='form-input'
-                                    type="email"
-                                    name="email"
-                                    placeholder="Email"
+                                    type="name"
+                                    name="name"
+                                    placeholder="Name"
                                     value={this.state.user.name}
                                     onChange={this.handleChange}
                                     />
