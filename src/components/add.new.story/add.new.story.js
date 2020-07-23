@@ -149,7 +149,7 @@ export default class AddNewStory extends Component {
         return this.state.chapters.map((chapter, i) => {
             return (
                 <h4 key={i} className="chapter-heading-contents">
-                    <a href={`#chapter_${i}`} className="chapter-heading-link">
+                    <a href={`#chapter_${chapter.id}`} className="chapter-heading-link">
                         Chapter {i+1}: {chapter.heading}
                     </a>
                 </h4>
@@ -230,7 +230,7 @@ export default class AddNewStory extends Component {
                                 type="button"
                                 onClick={this.addNewTag}
                                 style={{
-                                    backgroundColor: '#88d498',
+                                    backgroundColor: '#57c06e',
                                     border: 'none'
                                 }}>
                                     <FormattedMessage id="button-add-new-tag" />
@@ -266,7 +266,7 @@ export default class AddNewStory extends Component {
                             type="button"
                             onClick={this.addChapter}
                             style={{
-                                backgroundColor: '#88d498',
+                                backgroundColor: '#57c06e',
                                 border: 'none'
                             }}>
                                 <FormattedMessage id="button-add-chapter" />

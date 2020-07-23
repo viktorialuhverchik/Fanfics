@@ -23,7 +23,7 @@ export default class PageStory extends Component {
 
     async componentWillMount() {
         const story = await storyService.getStoryById(this.state.storyId);
-        this.setState({story});
+        this.setState({ story });
     }
 
     handleClickLike() {
