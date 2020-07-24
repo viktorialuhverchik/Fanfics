@@ -11,19 +11,6 @@ export default class RenderedStory extends Component {
         this.state = {
             story: props.story
         };
-
-        this.handleClickComments = this.handleClickComments.bind(this);
-        this.handleClickRating = this.handleClickRating.bind(this);
-    }
-
-    async componentDidMount() {}
-
-    handleClickComments() {
-        console.log('Click Comments');
-    }
-
-    handleClickRating() {
-        console.log('Click Rating');
     }
 
     render() {
@@ -37,13 +24,18 @@ export default class RenderedStory extends Component {
                             <h1 key={story.id}>{story.heading}</h1>
                         </Link>
                     </Col>
-                    <Col xs={6} md={4} className="tools">
-                        <button className="btn btn-lg active">
-                            <i className="fa fa-trash" aria-hidden="true"></i>
-                        </button>
-                        <Link to={"/markdownpage"} className="btn btn-lg active">
-                            <i className="fa fa-pencil" aria-hidden="true"></i>
-                        </Link>
+                    <Col xs={4} md={2}></Col>
+                    <Col xs={4} md={2} className="tools">
+                        <Row>
+                            <Col>
+                                <i className="fa fa-trash" aria-hidden="true"></i>
+                            </Col>
+                            <Col>
+                                <Link to={"/markdownpage"}>
+                                    <i className="fa fa-pencil" aria-hidden="true"></i>
+                                </Link>
+                            </Col>
+                        </Row>
                     </Col>
                 </Row>
                 <div>
@@ -59,14 +51,9 @@ export default class RenderedStory extends Component {
                 </div>
                 <Row className="tool-bar">
                     <Col className="comments-wrapper">
-                        <button 
-                        type="button" 
-                        className="btn btn-lg btn-comments"
-                        onClick={this.handleClickComments}>
-                            <Link to={`/pagestory/${story.id}/#comments`}>
-                                <i className="fa fa-comments" aria-hidden="true"></i>
-                            </Link>
-                        </button>
+                        <Link to={`/pagestory/${story.id}/#comments`}>
+                            <i className="fa fa-comments" aria-hidden="true"></i>
+                        </Link>
                     </Col>
                     <Col className="rating">
                         <div>
@@ -86,8 +73,8 @@ export default class RenderedStory extends Component {
                                 </p>
                             </div>
                         </Col>
-                        <Col xs={6} md={4}>
-                            <Link to={`/users/${story.user.id}/stories`} className="user-icon-wrapper">
+                        <Col xs={6} md={4} className="user-icon-wrapper">
+                            <Link to={`/users/${story.user.id}/stories`}>
                                 <button className="user-icon"></button>
                             </Link>
                         </Col>

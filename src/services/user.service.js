@@ -16,7 +16,6 @@ export default {
     },
 
     getUserById(id) {
-        localStorage.setItem("id", id);
         const token = localStorage.getItem('token');
         return axios({
             method: 'GET',

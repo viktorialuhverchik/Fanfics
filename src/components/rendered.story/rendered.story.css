@@ -15,7 +15,7 @@
 }
 
 .tools {
-    text-align: end;
+    float: right;
 }
 
 .tool-bar {
@@ -24,10 +24,15 @@
 
 .fa-trash {
     color: #114b5f;
+    font-size: 18px;
+    padding: 15px;
+    cursor: pointer;
 }
 
 .fa-pencil {
     color: #114b5f;
+    font-size: 18px;
+    padding: 15px;
 }
 
 .fa-star {
@@ -36,10 +41,12 @@
     -webkit-text-fill-color: #ffffff;
     -webkit-text-stroke-width: 1px;
     -webkit-text-stroke-color: #000000;
+    font-size: 18px;
 }
 
 .fa-comments, .fa-comments:hover {
     color: #114b5f;
+    font-size: 18px;
 }
 
 .comments-wrapper {

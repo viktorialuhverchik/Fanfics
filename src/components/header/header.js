@@ -9,8 +9,7 @@ export default class Header extends Component {
     constructor(props) {
         super(props);
 
-        this.state = {
-        };
+        this.state = {};
 
         this.handleClickNew = this.handleClickNew.bind(this);
         this.handleClickRating = this.handleClickRating.bind(this);
@@ -23,7 +22,13 @@ export default class Header extends Component {
     }
     
     render() {
-        const id = localStorage.getItem("id");
+        const id = this.props.userId;
+        let userIcon = null;
+        if(id) {
+            userIcon =  <Link to={`/users/${id}/stories`} className="user-icon-wrapper">
+                            <button className="user-icon"></button>
+                        </Link>;
+        }
         return (
             <Row className="app-header">
                 <Col xs={12} md={6} className="header-nav-bar">
@@ -45,9 +50,7 @@ export default class Header extends Component {
                     <SearchPanel />
                 </Col>
                 <Col>
-                    <Link to={`/users/${id}/stories`} className="user-icon-wrapper">
-                        <button className="user-icon"></button>
-                    </Link>
+                    {userIcon}
                 </Col>
             </Row>
         );

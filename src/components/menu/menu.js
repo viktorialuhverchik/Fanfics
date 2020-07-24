@@ -31,11 +31,11 @@ export default class Menu extends Component {
         let authBlock;
 
         if (this.state.shownAuthBlock === 'login') {
-            authBlock = <Login onBlockHide={this.toggleAuthBlock} />;
+            authBlock = <Login onBlockHide={this.toggleAuthBlock} onUserIdChange={this.props.onUserIdChange} />;
         }
 
         if (this.state.shownAuthBlock === 'signup') {
-            authBlock = <Signup onBlockHide={this.toggleAuthBlock} />;
+            authBlock = <Signup onBlockHide={this.toggleAuthBlock} onUserIdChange={this.props.onUserIdChange} />;
         }
 
         return (

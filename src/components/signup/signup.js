@@ -20,7 +20,6 @@ export default class Signup extends Component {
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleClick = this.handleClick.bind(this);
-        this.onBlockHide = props.onBlockHide;
     }
 
     handleChange(event) {
@@ -30,16 +29,17 @@ export default class Signup extends Component {
     }
 
     handleClick() {
-        this.onBlockHide('login');
+        this.props.onBlockHide('login');
     }
 
     async handleSubmit(event) {
         event.preventDefault();
 
         try {
-            await authService.signup(this.state.email, this.state.name, this.state.password);
+            const user = await authService.signup(this.state.email, this.state.name, this.state.password);
             localStorage.setItem('email', this.state.email);
-            this.onBlockHide(null);
+            this.props.onUserIdChange(user.id);
+            this.props.onBlockHide(null);
             this.setState({redirect: '/'});
         } catch(error) {
             console.log(error);

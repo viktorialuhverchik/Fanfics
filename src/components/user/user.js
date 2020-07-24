@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Redirect } from 'react-router-dom'; 
 import { Row, Col, Container, Button, Input } from 'reactstrap';
 import { FormattedMessage } from 'react-intl';
 import RenderedStory from '../rendered.story/rendered.story';
@@ -12,9 +11,8 @@ export default class User extends Component {
 
         this.state = {
             id: props.match.params.id,
-            user: {},
-            stories: [],
-            redirect: null
+            user: null,
+            stories: []
         };
 
     this.handleClickSave = this.handleClickSave.bind(this);
@@ -36,7 +34,6 @@ export default class User extends Component {
     }
 
     handleClickLogout() {
-        this.setState({redirect: '/'});
     }
 
     handleChange() {
@@ -44,8 +41,17 @@ export default class User extends Component {
     }
 
     render() {
-        if (this.state.redirect) {
-            return <Redirect to={this.state.redirect} />
+        const user = this.state.user;
+        if (!user) {
+            return (
+                <Row>
+                    <Col>
+                        <Container className="container-page-story">
+                            <h4>Loading...</h4>
+                        </Container>
+                    </Col>
+                </Row>
+            );
         }
         return (
             <Row>

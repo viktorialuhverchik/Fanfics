@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {Component} from 'react';
 import { Route, Switch } from "react-router-dom";
 import { Col } from 'reactstrap';
 import Header from '../header/header';
@@ -30,37 +30,56 @@ const localStorageKey = {
     SELECTED_LOCALE: "my-app.selected-locale"
 };
 
-function App() {
-    const [selectedState, setSelectedState] = useState(localStorage.getItem(localStorageKey.SELECTED_LOCALE) || locales.EN.value);
-    const onLocaleChange = value => {
-        setSelectedState(value);
+export default class App extends Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            language: localStorage.getItem(localStorageKey.SELECTED_LOCALE) || locales.EN.value,
+            userId: localStorage.getItem('id')
+        };
+
+        this.onLocaleChange = this.onLocaleChange.bind(this);
+        this.onUserIdChange = this.onUserIdChange.bind(this);
+    }
+
+    onLocaleChange(value) {
+        this.setState({ language: value });
         localStorage.setItem(localStorageKey.SELECTED_LOCALE, value);
     };
-    return (
-        <div className="app">
-            <IntlProvider locale={selectedState} messages={messages[selectedState]}>
-                <Header />
-                <Col xs={6} md={4} className="menu">
-                    <LocaleSelector onLocaleChange={onLocaleChange} />
-                    <ThemeSelector />
-                    <Menu />
-                </Col>
-                <Switch>
-                    <Route exact path="/new" component={SortedByNew} />
-                    <Route exact path="/popular" component={SortedByRating} />
-                    <Route exact path="/users/:id/stories" component={User} />
-                    <Route exact path="/user-verify/:token" component={UserVerify} />
-                    <Route exact path="/admin" component={Admin} />
-                    <Route exact path="/addnewstory" component={AddNewStory} />
-                    <Route exact path="/pagestory/:storyId" component={PageStory} />
-                    <Route exact path="/searchresult" component={SearchResult} />
-                    <Route exact path="/markdownpage" component={MarkdownPageStory} />
-                    <Route exact path="/404" component={PageNotFound} />
-                    <Route exact path="/" component={SortedByNew} />
-                </Switch>
-            </IntlProvider>
-        </div>
-    );
-}
 
-export default App;
+    onUserIdChange(userId) {
+        this.setState({ userId });
+    }
+
+    render() {
+        const language = this.state.language;
+        const userId = this.state.userId;
+
+        return (
+            <div className="app">
+                <IntlProvider locale={language} messages={messages[language]}>
+                    <Header userId={userId} />
+                    <Col xs={6} md={4} className="menu">
+                        <LocaleSelector onLocaleChange={this.onLocaleChange} />
+                        <ThemeSelector />
+                        <Menu onUserIdChange={this.onUserIdChange} />
+                    </Col>
+                    <Switch>
+                        <Route exact path="/new" component={SortedByNew} />
+                        <Route exact path="/popular" component={SortedByRating} />
+                        <Route exact path="/users/:id/stories" component={User} />
+                        <Route exact path="/user-verify/:token" component={UserVerify} />
+                        <Route exact path="/admin" component={Admin} />
+                        <Route exact path="/addnewstory" component={AddNewStory} />
+                        <Route exact path="/pagestory/:storyId" component={PageStory} />
+                        <Route exact path="/searchresult" component={SearchResult} />
+                        <Route exact path="/markdownpage" component={MarkdownPageStory} />
+                        <Route exact path="/404" component={PageNotFound} />
+                        <Route exact path="/" component={SortedByNew} />
+                    </Switch>
+                </IntlProvider>
+            </div>
+        );
+    }
+}

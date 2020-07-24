@@ -12,7 +12,9 @@ export default class PageStory extends Component {
         this.state = {
             storyId: props.match.params.storyId,
             story: null,
-            comment: ""
+            comment: "",
+            like: 0,
+            rating: 0
         };
 
 
@@ -49,13 +51,18 @@ export default class PageStory extends Component {
                                 {chapter.heading}
                             </h4>
                         </Col>
-                        <Col xs={6} md={4} className="tools">
-                            <button className="btn btn-lg active">
-                                <i className="fa fa-trash" aria-hidden="true"></i>
-                            </button>
-                            <Link to={"/markdownpage"} className="btn btn-lg active">
-                                <i className="fa fa-pencil" aria-hidden="true"></i>
-                            </Link>
+                        <Col xs={4} md={2}></Col>
+                        <Col xs={4} md={2} className="tools">
+                            <Row>
+                                <Col>
+                                    <i className="fa fa-trash" aria-hidden="true"></i>
+                                </Col>
+                                <Col>
+                                    <Link to={"/markdownpage"}>
+                                        <i className="fa fa-pencil" aria-hidden="true"></i>
+                                    </Link>
+                                </Col>
+                            </Row>
                         </Col>
                     </Row>
                     <Row>
@@ -63,12 +70,7 @@ export default class PageStory extends Component {
                     </Row>
                     <Row>
                         <Col>
-                            <button 
-                            type="button" 
-                            className="btn btn-lg btn-heart"
-                            onClick={this.handleClickLike}>
-                                <i className="fa fa-heart"></i>
-                            </button>
+                            <i className="fa fa-heart" onClick={this.handleClickLike}></i>
                             <div>{chapter.likes}</div>
                         </Col>
                     </Row>
@@ -148,27 +150,27 @@ export default class PageStory extends Component {
                                 <div>
                                     <i
                                     id="star_1"
-                                    className="fa fa-star"
+                                    className="fa fa-star pointer"
                                     onClick={this.handleClickRating}>
                                     </i>
                                     <i
                                     id="star_2"
-                                    className="fa fa-star"
+                                    className="fa fa-star pointer"
                                     onClick={this.handleClickRating}>
                                     </i>
                                     <i
                                     id="star_3"
-                                    className="fa fa-star"
+                                    className="fa fa-star pointer"
                                     onClick={this.handleClickRating}>
                                     </i>
                                     <i
                                     id="star_4"
-                                    className="fa fa-star"
+                                    className="fa fa-star pointer"
                                     onClick={this.handleClickRating}>
                                     </i>
                                     <i
                                     id="star_5"
-                                    className="fa fa-star"
+                                    className="fa fa-star pointer"
                                     onClick={this.handleClickRating}>
                                     </i>
                                 </div>
@@ -200,7 +202,7 @@ export default class PageStory extends Component {
                                 {story.comments.map(comment => {
                                     return (
                                         <div className="comment" key={comment.id}>
-                                            <Col xs={2} md={1}>
+                                            <Col xs={1}>
                                                 <Link to={`/users/${comment.user.id}/stories`} className="user-icon-wrapper">
                                                     <button className="user-icon"></button>
                                                 </Link>
