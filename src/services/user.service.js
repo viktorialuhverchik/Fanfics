@@ -1,4 +1,5 @@
 import axios from "axios";
+import api from "../constants";
 
 export default {
     async getUsers() {
@@ -9,7 +10,7 @@ export default {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${token}`
             },
-            url: 'https://fanfics-backend.herokuapp.com/api/users/all'
+            url: `${api}/users/all`
         })
         .then(response => response.data);
     },
@@ -23,7 +24,7 @@ export default {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${token}`
             },
-            url: `https://fanfics-backend.herokuapp.com/api/users/${id}`
+            url: `${api}/users/${id}`
         })
         .then(response => response.data);
     },
@@ -36,7 +37,7 @@ export default {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${token}`
         },
-        url: `https://fanfics-backend.herokuapp.com/api/users/${id}/stories`
+        url: `${api}/users/${id}/stories`
     })
     .then(response => response.data);
     },
@@ -50,7 +51,7 @@ export default {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${token}`
             },
-            url: 'https://fanfics-backend.herokuapp.com/api/users/delete',
+            url: `${api}/users/delete`,
             data: {
                 users
             }
@@ -65,7 +66,7 @@ export default {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${token}`
             },
-            url: 'https://fanfics-backend.herokuapp.com/api/users/update-status',
+            url: `${api}/users/update-status`,
             data: {
                 users,
                 command

@@ -37,8 +37,7 @@ export default class Signup extends Component {
         event.preventDefault();
 
         try {
-            const result = await authService.signup(this.state.email, this.state.name, this.state.password);
-            console.log(result);
+            await authService.signup(this.state.email, this.state.name, this.state.password);
             localStorage.setItem('email', this.state.email);
             this.onBlockHide(null);
             this.setState({redirect: '/'});

@@ -1,6 +1,7 @@
 import React, { Component} from 'react';
 import { Redirect } from 'react-router-dom';
 import { FormattedMessage } from 'react-intl';
+import { Link } from 'react-router-dom';
 import Dropzone from 'react-dropzone';
 import { Form, Button, Input, Col, Row } from 'reactstrap';
 import Select from 'react-select';
@@ -71,7 +72,6 @@ export default class AddNewStory extends Component {
 
     
     handleSelectGenre ({value}) {
-        console.log('genre', value);
         this.setState({ selectedGenre: value });
     }
 
@@ -139,10 +139,6 @@ export default class AddNewStory extends Component {
                 <MarkdownInput input={chapter.text} onInputChanged={(text) => { this.setMarkdownText(index, text); }} />
             </div>
         );
-    }
-
-    handleCancel() {
-        this.setState({redirect: '/'});
     }
 
     renderContents() {
@@ -241,7 +237,7 @@ export default class AddNewStory extends Component {
                             {this.state.selectedTags.map((tag, i) => {
                                 return <div key={i} className="tag">
                                     <div>
-                                        {tag}
+                                        { tag }
                                     </div>
                                     <div>
                                         <i className="fa fa-close" aria-hidden="true" onClick={() => {
@@ -282,14 +278,14 @@ export default class AddNewStory extends Component {
                             }}>
                                 <FormattedMessage id="button-add-story" />
                             </Button>
-
-                            <Button 
-                            className="form-btn-cancel"
-                            type="button" 
-                            outline color="secondary"
-                            onClick={this.handleCancel}>
-                                <FormattedMessage id="button-cancel" />
-                            </Button>
+                            <Link to="/">
+                                <Button 
+                                className="form-btn-cancel"
+                                type="button" 
+                                outline color="secondary">
+                                    <FormattedMessage id="button-cancel" />
+                                </Button>
+                            </Link>
                         </div>
                     </Form>
                 </Col>

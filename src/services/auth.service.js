@@ -1,11 +1,12 @@
 import axios from "axios";
+import api from "../constants/";
 
 export default {
     login (email, password) { 
         return axios({
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
-            url: 'https://fanfics-backend.herokuapp.com/api/auth/login',
+            url: `${api}/auth/login`,
             data: {
               email,
               password
@@ -14,6 +15,7 @@ export default {
         .then(response => {
             localStorage.setItem('token', response.data.token);
             localStorage.setItem('id', response.data.id);
+            console.log(response);
 
             return response.data;
         });
@@ -22,7 +24,7 @@ export default {
         return axios({
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
-            url: 'https://fanfics-backend.herokuapp.com/api/auth/register',
+            url: `${api}/auth/register`,
             data: {
               email,
               name,

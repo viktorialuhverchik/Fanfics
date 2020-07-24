@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import { FormattedMessage } from 'react-intl';
-import { Row, Col, Button } from 'reactstrap';
+import { Container, Row, Col } from 'reactstrap';
 import RenderedStory from '../rendered.story/rendered.story';
 import storyService from '../../services/story.service';
 
@@ -8,7 +7,7 @@ export default class SortedByRating extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            stories: []
+            stories: null
         };
     }
 
@@ -23,6 +22,19 @@ export default class SortedByRating extends Component {
     }
 
     render() {
+        const stories = this.state.stories;
+
+        if (!stories) {
+            return (
+                <Row>
+                    <Col>
+                        <Container className="container-page-story">
+                            <h4>Loading...</h4>
+                        </Container>
+                    </Col>
+                </Row>
+            );
+        }
         return (
             <Row>
                 <Col>

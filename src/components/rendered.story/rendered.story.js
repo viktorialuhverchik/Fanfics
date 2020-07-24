@@ -63,7 +63,7 @@ export default class RenderedStory extends Component {
                         type="button" 
                         className="btn btn-lg btn-comments"
                         onClick={this.handleClickComments}>
-                            <Link to={`/pagestory/${story.id}/comments`}>
+                            <Link to={`/pagestory/${story.id}/#comments`}>
                                 <i className="fa fa-comments" aria-hidden="true"></i>
                             </Link>
                         </button>

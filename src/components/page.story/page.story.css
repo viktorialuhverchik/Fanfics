@@ -78,3 +78,37 @@ h6 {
 .tool-bar {
     margin-top: 10px;
 }
+
+.form-comments {
+    background-color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: start; 
+    padding: 15px;
+    border: 1px solid #d3d3d3;
+}
+
+.comment {
+    width: 100%;
+    margin-bottom: 10px;
+    padding: 15px;
+    border: 1px solid #d3d3d3;
+    border-radius: 0.25rem;
+    display: flex;
+    align-items: center;
+}
+
+.comment-text {
+    color: #114b5f;
+}
+
+.form-btn-comments {
+    height: 40px;
+    margin-top: 10px;
+}
+
+.form-btn-cancel {
+    margin-left: 5px;
+    height: 40px;
+}

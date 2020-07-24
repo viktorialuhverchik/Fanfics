@@ -1,5 +1,5 @@
 import axios from "axios";
-
+import api from "../constants";
 
 export default {
     createStory(heading, description, genre, chapters, tags) {
@@ -10,7 +10,7 @@ export default {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${token}`
             },
-            url: 'https://fanfics-backend.herokuapp.com/api/stories/create',
+            url: `${api}/stories/create`,
             data: {
                 heading, 
                 description, 
@@ -30,7 +30,7 @@ export default {
         headers: {
             'Content-Type': 'application/json'
         },
-        url: 'https://fanfics-backend.herokuapp.com/api/stories/all'
+        url: `${api}/stories/all`
     })
     .then(response => response.data);
     },
@@ -41,7 +41,7 @@ export default {
         headers: {
             'Content-Type': 'application/json'
         },
-        url: `https://fanfics-backend.herokuapp.com/api/stories/${storyId}`
+        url: `${api}/stories/${storyId}`
     })
     .then(response => response.data);
     },
@@ -52,7 +52,7 @@ export default {
             headers: {
                 'Content-Type': 'application/json'
             },
-            url: 'https://fanfics-backend.herokuapp.com/api/tags/all'
+            url: `${api}/tags/all`
         })
         .then(response => response.data);
     },
@@ -65,8 +65,27 @@ export default {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${token}`
             },
-            url: 'https://fanfics-backend.herokuapp.com/api/genres/all'
+            url: `${api}/genres/all`
         })
         .then(response => response.data);
+    },
+
+    addComment(text, storyId) {
+        const token = localStorage.getItem('token');
+        return axios({
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+            url: `${api}/stories/${storyId}/comment`,
+            data: {
+                text,
+                storyId
+            }
+        })
+        .then(response => {
+            return response.data;
+        });
     }
 }

@@ -35,6 +35,7 @@ body.dark-theme .inline-edit-label,
 body.dark-theme .chapter-heading-link,
 body.dark-theme .chapter-heading-link:hover,
 body.dark-theme .chapter-text,
+body.dark-theme .comment-text,
 body.dark-theme td {
   color: #f3e9d2;
 }

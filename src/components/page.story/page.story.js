@@ -1,9 +1,8 @@
 import React, {Component} from 'react';
 import { Link } from 'react-router-dom';
-import { Container, Row, Col } from 'reactstrap';
+import { Container, Row, Col, Form, Button, Input } from 'reactstrap';
 import { FormattedMessage } from 'react-intl';
 import storyService from '../../services/story.service';
-import Comments from '../comments/comments';
 import './page.story.css';
 
 export default class PageStory extends Component {
@@ -13,15 +12,15 @@ export default class PageStory extends Component {
         this.state = {
             storyId: props.match.params.storyId,
             story: null,
-            like: 0,
-            rating: 0,
-            comments: []
+            comment: ""
         };
 
 
         this.handleClickLike = this.handleClickLike.bind(this);
         this.handleClickRating = this.handleClickRating.bind(this);
         this.renderChapters = this.renderChapters.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleChange = this.handleChange.bind(this);
     }
 
     async componentWillMount() {
@@ -71,6 +70,7 @@ export default class PageStory extends Component {
                             onClick={this.handleClickLike}>
                                 <i className="fa fa-heart"></i>
                             </button>
+                            <div>{chapter.likes}</div>
                         </Col>
                     </Row>
                 </Container>
@@ -88,6 +88,25 @@ export default class PageStory extends Component {
                     </a>
                 </h4>
             );
+        });
+    }
+
+    async handleSubmit(event) {
+        event.preventDefault();
+
+        try {
+            await storyService.addComment(this.state.comment, this.state.storyId);
+            this.setState({
+                comment: ""
+            });
+        } catch(error) {
+            console.log(error);
+        }
+    }
+
+    handleChange(event) {
+        this.setState({
+            comment: event.target.value
         });
     }
 
@@ -153,7 +172,52 @@ export default class PageStory extends Component {
                     </Container>
                     <Row>
                         <Col>
-                            <Comments />
+                            <Form
+                            onSubmit={this.handleSubmit}
+                            className="form-comments"
+                            id="comments">
+                                
+                                {story.comments.map(comment => {
+                                    return (
+                                        <div className="comment" key={comment.id}>
+                                            <Col xs={2} md={1}>
+                                            <Link to={`/users/${comment.user.id}/stories`} className="user-icon-wrapper">
+                                                <button className="user-icon"></button>
+                                            </Link>
+                                            </Col>
+                                            <Col>
+                                            <h4 className="user-name">{comment.user.name}</h4>
+                                            <span key={comment.id} className="comment-text">
+                                                {comment.text}
+                                            </span>
+                                            </Col>
+                                            
+                                            
+                                        </div>
+                                    );
+                                })}
+
+                                <Input
+                                type="text"
+                                name="text"
+                                placeholder="What are you thinking about this story?"
+                                className="form-input-comment"
+                                onChange={this.handleChange}
+                                value={this.state.comment}
+                                />
+                                <div className="form-btns">
+                                    <Button
+                                    className="form-btn-comments"
+                                    type="submit"
+                                    style={{
+                                        backgroundColor: '#1a936f',
+                                        border: 'none'
+                                    }}
+                                    >
+                                        <FormattedMessage id="button-add-comment" />
+                                    </Button>
+                                </div>
+                            </Form>
                         </Col>
                     </Row>
                 </Col>
