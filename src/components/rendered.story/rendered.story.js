@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Container, Row, Col } from 'reactstrap';
 import { Link } from 'react-router-dom';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, FormattedDate } from 'react-intl';
 import './rendered.story.css';
 
 export default class RenderedStory extends Component {
@@ -58,7 +58,7 @@ export default class RenderedStory extends Component {
                     {story.tags.map(tag => <span className="tag-name" key={tag.id}>{tag.name}</span>)}
                 </div>
                 <Row className="tool-bar">
-                    <Col>
+                    <Col className="comments-wrapper">
                         <button 
                         type="button" 
                         className="btn btn-lg btn-comments"
@@ -68,22 +68,23 @@ export default class RenderedStory extends Component {
                             </Link>
                         </button>
                     </Col>
-                    <Col>
-                        <button 
-                        type="button" 
-                        className="btn btn-lg btn-star"
-                        onClick={this.handleClickRating}>
+                    <Col className="rating">
+                        <div>
                             <i className="fa fa-star"></i>
                             <i className="fa fa-star"></i>
                             <i className="fa fa-star"></i>
                             <i className="fa fa-star"></i>
                             <i className="fa fa-star"></i>
-                        </button>
+                        </div>
                     </Col>
                     <Col className="user-info">
                         <Col xs={12} md={6}>
-                            <p className="user-name">{story.user.name}</p>
-                            <p className="update-date">{story.updatedAt}</p>
+                            <div>
+                                <p className="user-name">{story.user.name}</p>
+                                <p className="update-date">
+                                    <FormattedDate value={new Date(`${story.updatedAt}`)} />
+                                </p>
+                            </div>
                         </Col>
                         <Col xs={6} md={4}>
                             <Link to={`/users/${story.user.id}/stories`} className="user-icon-wrapper">

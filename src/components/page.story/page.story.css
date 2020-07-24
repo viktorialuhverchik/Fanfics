@@ -68,15 +68,23 @@ h6 {
 } 
 
 .user-name {
-    font-size: small;
+    font-size: 16px;
+    margin-bottom: 5px;
 }
 
 .update-date {
-    font-size: small;
+    font-size: 12px;
+    margin-bottom: 0px;
 }
 
 .tool-bar {
     margin-top: 10px;
+}
+
+.rating {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .form-comments {
@@ -103,12 +111,12 @@ h6 {
     color: #114b5f;
 }
 
+.comment-add-date {
+    margin-top: 5px;
+    font-size: 12px;
+}
+
 .form-btn-comments {
     height: 40px;
     margin-top: 10px;
-}
-
-.form-btn-cancel {
-    margin-left: 5px;
-    height: 40px;
 }

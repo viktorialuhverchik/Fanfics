@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import { Link } from 'react-router-dom';
 import { Container, Row, Col, Form, Button, Input } from 'reactstrap';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, FormattedDate } from 'react-intl';
 import storyService from '../../services/story.service';
 import './page.story.css';
 
@@ -40,11 +40,10 @@ export default class PageStory extends Component {
         const story = this.state.story;
         return story.chapters.map(chapter => {
             return (
-                <Container className="container-chapter-story">
+                <Container className="container-chapter-story" key={chapter.id}>
                     <Row>
                         <Col xs={12} md={8} className="chapter">
                             <h4
-                            key={chapter.id}
                             id={`chapter_${chapter.id}`}
                             className="chapter-heading">
                                 {chapter.heading}
@@ -145,22 +144,43 @@ export default class PageStory extends Component {
                             {story.tags.map(tag => <span className="tag-name" key={tag.id}>{tag.name}</span>)}
                         </div>
                         <Row className="tool-bar">
-                            <Col>
-                                <button 
-                                type="button" 
-                                className="btn btn-lg btn-star"
-                                onClick={this.handleClickRating}>
-                                    <i className="fa fa-star"></i>
-                                    <i className="fa fa-star"></i>
-                                    <i className="fa fa-star"></i>
-                                    <i className="fa fa-star"></i>
-                                    <i className="fa fa-star"></i>
-                                </button>
+                            <Col className="rating">
+                                <div>
+                                    <i
+                                    id="star_1"
+                                    className="fa fa-star"
+                                    onClick={this.handleClickRating}>
+                                    </i>
+                                    <i
+                                    id="star_2"
+                                    className="fa fa-star"
+                                    onClick={this.handleClickRating}>
+                                    </i>
+                                    <i
+                                    id="star_3"
+                                    className="fa fa-star"
+                                    onClick={this.handleClickRating}>
+                                    </i>
+                                    <i
+                                    id="star_4"
+                                    className="fa fa-star"
+                                    onClick={this.handleClickRating}>
+                                    </i>
+                                    <i
+                                    id="star_5"
+                                    className="fa fa-star"
+                                    onClick={this.handleClickRating}>
+                                    </i>
+                                </div>
                             </Col>
                             <Col className="user-info">
                                 <Col xs={12} md={6}>
-                                    <p className="user-name">{story.user.name}</p>
-                                    <p className="update-date">{story.updatedAt}</p>
+                                    <div>
+                                        <p className="user-name">{story.user.name}</p>
+                                        <p className="update-date">
+                                            <FormattedDate value={new Date(`${story.updatedAt}`)} />
+                                        </p>
+                                    </div>
                                 </Col>
                                 <Col xs={4} md={2}>
                                     <Link to={`/users/${story.user.id}/stories`} className="user-icon-wrapper">
@@ -181,18 +201,19 @@ export default class PageStory extends Component {
                                     return (
                                         <div className="comment" key={comment.id}>
                                             <Col xs={2} md={1}>
-                                            <Link to={`/users/${comment.user.id}/stories`} className="user-icon-wrapper">
-                                                <button className="user-icon"></button>
-                                            </Link>
+                                                <Link to={`/users/${comment.user.id}/stories`} className="user-icon-wrapper">
+                                                    <button className="user-icon"></button>
+                                                </Link>
                                             </Col>
                                             <Col>
-                                            <h4 className="user-name">{comment.user.name}</h4>
-                                            <span key={comment.id} className="comment-text">
-                                                {comment.text}
-                                            </span>
+                                                <h4 className="user-name">{comment.user.name}</h4>
+                                                <span className="comment-text">
+                                                    {comment.text}
+                                                </span>
+                                                <p className="comment-add-date">
+                                                    <FormattedDate value={new Date(`${comment.createdAt}`)} />
+                                                </p>
                                             </Col>
-                                            
-                                            
                                         </div>
                                     );
                                 })}

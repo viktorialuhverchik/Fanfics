@@ -42,15 +42,20 @@
     color: #114b5f;
 }
 
+.comments-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .user-info {
     display: flex;
     flex-direction: row;
-}
-
-.user-name {
-    font-size: small;
+    justify-content: center;
+    align-items: center;
 }
 
 .update-date {
-    font-size: small;
+    font-size: 12px;
+    margin-bottom: 0px;
 }

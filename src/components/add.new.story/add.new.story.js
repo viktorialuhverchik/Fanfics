@@ -33,7 +33,6 @@ export default class AddNewStory extends Component {
         this.addChapter = this.addChapter.bind(this);
         this.renderChapter = this.renderChapter.bind(this);
         this.setMarkdownText = this.setMarkdownText.bind(this);
-        this.handleCancel = this.handleCancel.bind(this);
     }
 
     handleChange(event) {
