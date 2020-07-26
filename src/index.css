@@ -29,6 +29,7 @@ body.dark-theme h1:hover,
 body.dark-theme h4,
 body.dark-theme h6,
 body.dark-theme i,
+body.dark-theme td,
 body.dark-theme .form-toggle-block,
 body.dark-theme .tag-link,
 body.dark-theme .inline-edit-label,
@@ -36,7 +37,9 @@ body.dark-theme .chapter-heading-link,
 body.dark-theme .chapter-heading-link:hover,
 body.dark-theme .chapter-text,
 body.dark-theme .comment-text,
-body.dark-theme td {
+body.dark-theme .fa-comments:hover,
+body.dark-theme .rating-number,
+body.dark-theme .like-number {
   color: #f3e9d2;
 }
 
@@ -65,13 +68,21 @@ body.dark-theme .form-input-search,
 body.dark-theme .form-input-tag,
 body.dark-theme .form-input-chapter,
 body.dark-theme .form-input-comment,
-body.dark-theme .user-icon,
 body.dark-theme .icon {
   background-color: #aca3a3;
+}
+
+body.dark-theme .user-icon {
+  background-color: #aca3a3;
+  border: 0.25px solid #d3d3d3;
 }
 
 
 body.dark-theme .form-btn-search {
   background-color: #aca3a3;
   border: 0.5px solid #d3d3d3;
+}
+
+body.dark-theme i.selected {
+  -webkit-text-fill-color: #fdfa43;
 }

@@ -12,7 +12,7 @@ export default class SortedByRating extends Component {
     }
 
     async getStories() {
-        const stories = await storyService.getStories();
+        const stories = await storyService.getStories("rating");
 
         this.setState({ stories });
     }
@@ -38,7 +38,7 @@ export default class SortedByRating extends Component {
         return (
             <Row>
                 <Col>
-                    { this.state.stories.map(item => <RenderedStory key={item.id} story={item} />) }
+                    { this.state.stories.map(item => <RenderedStory key={item.id} story={item} userId={this.props.userId} />) }
                 </Col>
             </Row>
         );

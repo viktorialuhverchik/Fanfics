@@ -12,7 +12,7 @@ export default class SortedByNew extends Component {
     }
 
     async getStories() {
-        const stories = await storyService.getStories();
+        const stories = await storyService.getStories("date");
 
         this.setState(() => { 
             return { stories };
@@ -25,7 +25,8 @@ export default class SortedByNew extends Component {
 
     render() {
         const stories = this.state.stories;
-
+        const userId = this.props.userId;
+        
         if (!stories) {
             return (
                 <Row>
@@ -40,7 +41,7 @@ export default class SortedByNew extends Component {
         return (
             <Row>
                 <Col>
-                    { this.state.stories.map(item => <RenderedStory key={item.id} story={item} />) }
+                    { this.state.stories.map(item => <RenderedStory key={item.id} story={item} userId={userId} />) }
                 </Col>
             </Row>
         );

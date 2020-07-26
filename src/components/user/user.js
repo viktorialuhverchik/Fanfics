@@ -10,7 +10,6 @@ export default class User extends Component {
         super(props);
 
         this.state = {
-            id: props.match.params.id,
             user: null,
             stories: []
         };
@@ -21,8 +20,9 @@ export default class User extends Component {
     }
 
     async componentWillMount() {
-        const user = await userService.getUserById(this.state.id);
-        const stories = await userService.getStoriesByUserId(this.state.id);
+        const user = await userService.getUserById(this.props.userId);
+        const stories = await userService.getStoriesByUserId(this.props.userId);
+        console.log(stories);
         this.setState({ 
             user,
             stories
@@ -41,7 +41,9 @@ export default class User extends Component {
     }
 
     render() {
-        const user = this.state.user;
+        const user = this.state.user
+        const userId = this.props.userId;
+        
         if (!user) {
             return (
                 <Row>
@@ -97,7 +99,7 @@ export default class User extends Component {
                             </Col>
                         </Row>
                     </Container>
-                    { this.state.stories.map(story => <RenderedStory key={story.id} story={story} />) }
+                    { this.state.stories.map(story => <RenderedStory key={story.id} story={story} userId={userId} />) }
                 </Col>
             </Row>
         );

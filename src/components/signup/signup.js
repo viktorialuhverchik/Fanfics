@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Redirect } from 'react-router-dom'; 
 import { Form, Button, Input } from 'reactstrap';
 import { FormattedMessage } from 'react-intl';
 import './signup.css';
@@ -13,8 +12,7 @@ export default class Signup extends Component {
             name: '',
             email: '',
             password: '',
-            singupErrors: '',
-            redirect: null
+            singupErrors: ''
         };
 
         this.handleChange = this.handleChange.bind(this);
@@ -40,16 +38,12 @@ export default class Signup extends Component {
             localStorage.setItem('email', this.state.email);
             this.props.onUserIdChange(user.id);
             this.props.onBlockHide(null);
-            this.setState({redirect: '/'});
         } catch(error) {
             console.log(error);
         }
     }
 
     render() {
-        if (this.state.redirect) {
-            return <Redirect to={this.state.redirect} />
-        }
         return(
             <Form 
             className='form-signup'

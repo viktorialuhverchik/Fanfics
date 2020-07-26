@@ -19,31 +19,35 @@ export default {
                 tags
             }
         })
-        .then(response => {
-            return response.data;
-        });
+        .then(response => response.data);
     },
 
-    getStories() {
+    getStories(sortBy) {
         return axios({
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        url: `${api}/stories/all`
-    })
-    .then(response => response.data);
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            url: `${api}/stories/all`,
+            params: {
+                sortBy
+            }
+        })
+        .then(response => response.data);
     },
 
-    getStoryById(storyId) {
+    getStoryById(storyId, userId) {
         return axios({
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        url: `${api}/stories/${storyId}`
-    })
-    .then(response => response.data);
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            url: `${api}/stories/${storyId}`,
+            params: {
+                userId
+            }
+        })
+        .then(response => response.data);
     },
 
     getTags() {
@@ -82,6 +86,25 @@ export default {
             data: {
                 text,
                 storyId
+            }
+        })
+        .then(response => {
+            return response.data;
+        });
+    },
+
+    changeRating(storyId, rating) {
+        const token = localStorage.getItem('token');
+        return axios({
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+            url: `${api}/stories/${storyId}/rating`,
+            data: {
+                storyId,
+                rating
             }
         })
         .then(response => {

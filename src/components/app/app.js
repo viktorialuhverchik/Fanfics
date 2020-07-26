@@ -66,17 +66,17 @@ export default class App extends Component {
                         <Menu onUserIdChange={this.onUserIdChange} />
                     </Col>
                     <Switch>
-                        <Route exact path="/new" component={SortedByNew} />
-                        <Route exact path="/popular" component={SortedByRating} />
-                        <Route exact path="/users/:id/stories" component={User} />
+                        <Route exact path="/new" render={(props) => <SortedByNew {...props} userId={userId} />} />
+                        <Route exact path="/popular" render={(props) => <SortedByRating {...props} userId={userId} />} />
+                        <Route exact path="/users/:id/stories" render={(props) => <User {...props} userId={userId} />} />
                         <Route exact path="/user-verify/:token" component={UserVerify} />
                         <Route exact path="/admin" component={Admin} />
                         <Route exact path="/addnewstory" component={AddNewStory} />
-                        <Route exact path="/pagestory/:storyId" component={PageStory} />
+                        <Route exact path="/pagestory/:storyId" render={(props) => <PageStory {...props} userId={userId} />} />
                         <Route exact path="/searchresult" component={SearchResult} />
                         <Route exact path="/markdownpage" component={MarkdownPageStory} />
                         <Route exact path="/404" component={PageNotFound} />
-                        <Route exact path="/" component={SortedByNew} />
+                        <Route exact path="/" render={(props) => <SortedByNew {...props} userId={userId} />} />
                     </Switch>
                 </IntlProvider>
             </div>

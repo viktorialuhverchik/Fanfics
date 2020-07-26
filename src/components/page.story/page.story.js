@@ -3,44 +3,94 @@ import { Link } from 'react-router-dom';
 import { Container, Row, Col, Form, Button, Input } from 'reactstrap';
 import { FormattedMessage, FormattedDate } from 'react-intl';
 import storyService from '../../services/story.service';
+import chapterService from '../../services/chapter.service';
 import './page.story.css';
 
 export default class PageStory extends Component {
     constructor(props) {
         super(props);
-        
+
         this.state = {
             storyId: props.match.params.storyId,
             story: null,
             comment: "",
-            like: 0,
-            rating: 0
+            rating: [
+                { value: 1, selected: false },
+                { value: 2, selected: false },
+                { value: 3, selected: false },
+                { value: 4, selected: false },
+                { value: 5, selected: false }
+            ]
         };
 
 
         this.handleClickLike = this.handleClickLike.bind(this);
         this.handleClickRating = this.handleClickRating.bind(this);
         this.renderChapters = this.renderChapters.bind(this);
+        this.renderRating = this.renderRating.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleChange = this.handleChange.bind(this);
+        this.toggleLike= this.toggleLike.bind(this);
     }
 
     async componentWillMount() {
-        const story = await storyService.getStoryById(this.state.storyId);
+        const story = await storyService.getStoryById(this.state.storyId, this.props.userId);
         this.setState({ story });
     }
 
-    handleClickLike() {
-        console.log('Click Like');
+    toggleLike(chapterIndex) {
+        let story = this.state.story;
+        if (story.chapters[chapterIndex].liked) {
+            story.chapters[chapterIndex].liked = false;
+            story.chapters[chapterIndex].likesAmount--;
+        } else {
+            story.chapters[chapterIndex].liked = true;
+            story.chapters[chapterIndex].likesAmount++;
+        }
+
+        this.setState({ story });
+
+        return story.chapters[chapterIndex];
     }
 
-    handleClickRating() {
-        console.log('Click Rating');
+    async handleClickLike(index) {
+        if (!this.props.userId) return;
+
+        const chapter = this.toggleLike(index);
+
+        try {
+            await chapterService.toggleLike(chapter);
+        } catch(error) {
+            this.toggleLike(index);
+        }
+    }
+
+    async handleClickRating(rating, index) {
+        const formattedRating = this.state.rating.map((_rating, i) => {
+            _rating.selected = i <= index;
+            return _rating;
+        });
+        await storyService.changeRating(this.state.storyId, rating.value);
+        this.setState({ rating: formattedRating });
     }
 
     renderChapters() {
         const story = this.state.story;
-        return story.chapters.map(chapter => {
+        const id = +this.props.userId;
+        let tools = null;
+        if (id === story.user.id) {
+            tools = <Row>
+                        <Col>
+                            <i className="fa fa-trash" aria-hidden="true"></i>
+                        </Col>
+                        <Col>
+                            <Link to={"/markdownpage"}>
+                                <i className="fa fa-pencil" aria-hidden="true"></i>
+                            </Link>
+                        </Col>
+                    </Row>;
+        }
+        return story.chapters.map((chapter, i) => {
             return (
                 <Container className="container-chapter-story" key={chapter.id}>
                     <Row>
@@ -53,16 +103,7 @@ export default class PageStory extends Component {
                         </Col>
                         <Col xs={4} md={2}></Col>
                         <Col xs={4} md={2} className="tools">
-                            <Row>
-                                <Col>
-                                    <i className="fa fa-trash" aria-hidden="true"></i>
-                                </Col>
-                                <Col>
-                                    <Link to={"/markdownpage"}>
-                                        <i className="fa fa-pencil" aria-hidden="true"></i>
-                                    </Link>
-                                </Col>
-                            </Row>
+                            {tools}
                         </Col>
                     </Row>
                     <Row>
@@ -70,8 +111,8 @@ export default class PageStory extends Component {
                     </Row>
                     <Row>
                         <Col>
-                            <i className="fa fa-heart" onClick={this.handleClickLike}></i>
-                            <div>{chapter.likes}</div>
+                            {this.renderLike(chapter, i)}
+                            <span className="like-number">{chapter.likesAmount === 0 ? "Like" : chapter.likesAmount}</span>
                         </Col>
                     </Row>
                 </Container>
@@ -111,6 +152,24 @@ export default class PageStory extends Component {
         });
     }
 
+    renderRating() {
+        return this.state.rating.map((item, i) => {
+                return (
+                    <i
+                        key={i}
+                        className={`fa fa-star pointer ${item.selected ? "selected" : ""}`}
+                        onClick={() => { this.handleClickRating(item, i) }}>
+                    </i>
+                );
+        });
+    }
+
+    renderLike(chapter, index) {
+        return <i className={`fa fa-heart pointer ${chapter.liked ? "active" : ""}`}
+                onClick={() => { this.handleClickLike(index) }}>
+               </i>;
+    }
+
     render() {
         const story = this.state.story;
 
@@ -130,17 +189,13 @@ export default class PageStory extends Component {
             <Row>
                 <Col>
                     <Container className="container-page-story">
-                        <h1 className="heading">{story.heading}</h1>
-                        <div>
-                        <p key={story.genre.id}>
+                        <h1>{story.heading}</h1>
+                        <p>
                             <FormattedMessage id="genre" />: {story.genre.name}
                         </p>
-
                         <Col xs={12} md={6} className="form-contents">
                             {this.renderContents()}
                         </Col>
-                        
-                        </div>
                             {this.renderChapters()}
                         <div>
                             {story.tags.map(tag => <span className="tag-name" key={tag.id}>{tag.name}</span>)}
@@ -148,31 +203,7 @@ export default class PageStory extends Component {
                         <Row className="tool-bar">
                             <Col className="rating">
                                 <div>
-                                    <i
-                                    id="star_1"
-                                    className="fa fa-star pointer"
-                                    onClick={this.handleClickRating}>
-                                    </i>
-                                    <i
-                                    id="star_2"
-                                    className="fa fa-star pointer"
-                                    onClick={this.handleClickRating}>
-                                    </i>
-                                    <i
-                                    id="star_3"
-                                    className="fa fa-star pointer"
-                                    onClick={this.handleClickRating}>
-                                    </i>
-                                    <i
-                                    id="star_4"
-                                    className="fa fa-star pointer"
-                                    onClick={this.handleClickRating}>
-                                    </i>
-                                    <i
-                                    id="star_5"
-                                    className="fa fa-star pointer"
-                                    onClick={this.handleClickRating}>
-                                    </i>
+                                    {this.renderRating()}
                                 </div>
                             </Col>
                             <Col className="user-info">

@@ -7,14 +7,42 @@ import './rendered.story.css';
 export default class RenderedStory extends Component {
     constructor(props) {
         super(props);
-        
         this.state = {
-            story: props.story
+            rating: [
+                { selected: false },
+                { selected: false },
+                { selected: false },
+                { selected: false },
+                { selected: false }
+            ]
         };
     }
 
+    async componentWillMount() {
+        const formattedRating = await this.state.rating.map((star, i) => {
+            star.selected = (i + 1) <= Math.round(this.props.story.ratingAmount);
+            return star;
+        });
+        this.setState({ rating: formattedRating });
+    }
+
     render() {
-        const story = this.state.story;
+        const story = this.props.story;
+        const id = +this.props.userId;
+        let tools = null;
+
+        if (id === story.user.id) {
+            tools = <Row>
+                        <Col>
+                            <i className="fa fa-trash" aria-hidden="true"></i>
+                        </Col>
+                        <Col>
+                            <Link to={"/markdownpage"}>
+                                <i className="fa fa-pencil" aria-hidden="true"></i>
+                            </Link>
+                        </Col>
+                    </Row>;
+        }
         
         return (
             <Container className="container-story">
@@ -26,16 +54,7 @@ export default class RenderedStory extends Component {
                     </Col>
                     <Col xs={4} md={2}></Col>
                     <Col xs={4} md={2} className="tools">
-                        <Row>
-                            <Col>
-                                <i className="fa fa-trash" aria-hidden="true"></i>
-                            </Col>
-                            <Col>
-                                <Link to={"/markdownpage"}>
-                                    <i className="fa fa-pencil" aria-hidden="true"></i>
-                                </Link>
-                            </Col>
-                        </Row>
+                        {tools}
                     </Col>
                 </Row>
                 <div>
@@ -56,13 +75,14 @@ export default class RenderedStory extends Component {
                         </Link>
                     </Col>
                     <Col className="rating">
-                        <div>
-                            <i className="fa fa-star"></i>
-                            <i className="fa fa-star"></i>
-                            <i className="fa fa-star"></i>
-                            <i className="fa fa-star"></i>
-                            <i className="fa fa-star"></i>
-                        </div>
+                        {this.state.rating.map((star, index) => {
+                            return  <i
+                                        key={index}
+                                        className={`fa fa-star ${star.selected ? "selected" : ""}`}>
+                                    </i>;
+                        })}
+                        
+                        <span className="rating-number">{story.ratingAmount.toFixed(1)}</span>
                     </Col>
                     <Col className="user-info">
                         <Col xs={12} md={6}>
