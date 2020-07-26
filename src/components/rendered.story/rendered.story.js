@@ -82,7 +82,7 @@ export default class RenderedStory extends Component {
                                     </i>;
                         })}
                         
-                        <span className="rating-number">{story.ratingAmount.toFixed(1)}</span>
+                        <span className="rating-number">{!story.ratingAmount ? "0.0" : story.ratingAmount.toFixed(1)}</span>
                     </Col>
                     <Col className="user-info">
                         <Col xs={12} md={6}>
