@@ -4,8 +4,8 @@ import Select from 'react-select';
 import { FormattedMessage } from 'react-intl';
 
 const themes = {
-    dark: "Dark",
-    light: "Light"
+    dark: <FormattedMessage id="dark-theme"/>,
+    light: <FormattedMessage id="light-theme"/>
 };
 
 export default function ThemeSelector() {

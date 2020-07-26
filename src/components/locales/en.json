@@ -33,6 +33,8 @@
     "search": "Search...",
     "language": "Choose language",
     "theme": "Choose theme",
+    "dark-theme": "Dark",
+    "light-theme": "Light",
     "loading": "Loading...",
     "comment": "What are you thinking about this story?"
 }
