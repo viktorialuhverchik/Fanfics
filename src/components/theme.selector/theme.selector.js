@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { FormGroup, Container } from 'reactstrap';
 import Select from 'react-select';
+import { FormattedMessage } from 'react-intl';
 
 const themes = {
     dark: "Dark",
@@ -36,12 +37,14 @@ export default function ThemeSelector() {
     return (
         <Container className="container-setting">
             <FormGroup className="select-theme">
-                <Select
-                className="selected-theme"
-                onChange={onSelectTheme}
-                placeholder="Choose theme"
-                options={formatThemes()}>
-                </Select>
+                <FormattedMessage id="theme">
+                    {placeholder =>
+                    <Select
+                    className="selected-theme"
+                    onChange={onSelectTheme}
+                    placeholder={placeholder}
+                    options={formatThemes()} />}
+                </FormattedMessage>
             </FormGroup>
         </Container>
     );

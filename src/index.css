@@ -13,6 +13,10 @@ code {
     monospace;
 }
 
+button {
+  outline: none !important;
+}
+
 body.dark-theme,
 body.dark-theme .form-btn-cancel,
 body.dark-theme .mde-header,

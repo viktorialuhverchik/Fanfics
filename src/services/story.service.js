@@ -110,5 +110,19 @@ export default {
         .then(response => {
             return response.data;
         });
+    },
+
+    deleteStory(story) {
+        const token = localStorage.getItem('token');
+
+        return axios({
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+            url: `${api}/stories/${story.id}`
+        })
+        .then(response => response.data)
     }
 }

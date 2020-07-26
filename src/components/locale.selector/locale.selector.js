@@ -3,6 +3,7 @@ import { FormGroup, Container } from 'reactstrap';
 import locales from '../locales';
 import './locale.selector.css';
 import Select from 'react-select';
+import { FormattedMessage } from 'react-intl';
 
 export default function LocaleSelector({onLocaleChange}) {
     const formatLocales = () => {
@@ -18,11 +19,13 @@ export default function LocaleSelector({onLocaleChange}) {
     return (
         <Container className="container-setting">
             <FormGroup className="select-language">
-                <Select
-                onChange={(language) => onLocaleChange(language.value)}
-                placeholder="Choose language"
-                options={formatLocales()}>
-                </Select>
+                <FormattedMessage id="language">
+                    {placeholder => 
+                    <Select
+                    onChange={(language) => onLocaleChange(language.value)}
+                    placeholder={placeholder}
+                    options={formatLocales()} />}
+                </FormattedMessage>
             </FormGroup>
         </Container>
     );

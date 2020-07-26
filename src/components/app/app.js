@@ -68,7 +68,7 @@ export default class App extends Component {
                     <Switch>
                         <Route exact path="/new" render={(props) => <SortedByNew {...props} userId={userId} />} />
                         <Route exact path="/popular" render={(props) => <SortedByRating {...props} userId={userId} />} />
-                        <Route exact path="/users/:id/stories" component={User} />
+                        <Route exact path="/users/:id/stories" render={(props) => <User {...props} userId={userId} />} />
                         <Route exact path="/user-verify/:token" component={UserVerify} />
                         <Route exact path="/admin" component={Admin} />
                         <Route exact path="/addnewstory" component={AddNewStory} />

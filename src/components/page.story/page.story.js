@@ -27,15 +27,21 @@ export default class PageStory extends Component {
         this.handleClickLike = this.handleClickLike.bind(this);
         this.handleClickRating = this.handleClickRating.bind(this);
         this.renderChapters = this.renderChapters.bind(this);
+        this.deleteChapter = this.deleteChapter.bind(this);
         this.renderRating = this.renderRating.bind(this);
+        this.renderTools = this.renderTools.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.toggleLike= this.toggleLike.bind(this);
     }
 
-    async componentWillMount() {
+    async componentDidMount() {
         const story = await storyService.getStoryById(this.state.storyId, this.props.userId);
         this.setState({ story });
+
+        if (this.props.location.search.indexOf('comments') !== -1) {
+            window.location.href += '#comments';
+        }
     }
 
     toggleLike(chapterIndex) {
@@ -74,14 +80,14 @@ export default class PageStory extends Component {
         this.setState({ rating: formattedRating });
     }
 
-    renderChapters() {
-        const story = this.state.story;
+    renderTools(story, chapter) {
         const id = +this.props.userId;
         let tools = null;
+
         if (id === story.user.id) {
             tools = <Row>
                         <Col>
-                            <i className="fa fa-trash" aria-hidden="true"></i>
+                            <i className="fa fa-trash" onClick={() => this.deleteChapter(chapter.id)} aria-hidden="true"></i>
                         </Col>
                         <Col>
                             <Link to={"/markdownpage"}>
@@ -90,6 +96,13 @@ export default class PageStory extends Component {
                         </Col>
                     </Row>;
         }
+
+        return tools;
+    }
+
+    renderChapters() {
+        const story = this.state.story;
+        
         return story.chapters.map((chapter, i) => {
             return (
                 <Container className="container-chapter-story" key={chapter.id}>
@@ -103,7 +116,7 @@ export default class PageStory extends Component {
                         </Col>
                         <Col xs={4} md={2}></Col>
                         <Col xs={4} md={2} className="tools">
-                            {tools}
+                            { this.renderTools(story, chapter) }
                         </Col>
                     </Row>
                     <Row>
@@ -118,6 +131,18 @@ export default class PageStory extends Component {
                 </Container>
             );
         });
+    }
+
+    async deleteChapter(chapterId) {
+        try {
+            await chapterService.deleteChapter(chapterId);
+            let story = this.state.story;
+            let index = story.chapters.findIndex(chapter => chapter.id === chapterId);
+            story.chapters.splice(index, 1);
+            this.setState({ story });
+        } catch(error) {
+            console.dir(error);
+        }
     }
 
     renderContents() {
@@ -157,7 +182,7 @@ export default class PageStory extends Component {
                 return (
                     <i
                         key={i}
-                        className={`fa fa-star pointer ${item.selected ? "selected" : ""}`}
+                        className={`fa fa-star pointer ${item.selected ? "selected-stars" : ""}`}
                         onClick={() => { this.handleClickRating(item, i) }}>
                     </i>
                 );
@@ -178,7 +203,7 @@ export default class PageStory extends Component {
                 <Row>
                     <Col>
                         <Container className="container-page-story">
-                            <h4>Loading...</h4>
+                            <h4><FormattedMessage id="loading" /></h4>
                         </Container>
                     </Col>
                 </Row>
@@ -207,19 +232,15 @@ export default class PageStory extends Component {
                                 </div>
                             </Col>
                             <Col className="user-info">
-                                <Col xs={12} md={6}>
-                                    <div>
-                                        <p className="user-name">{story.user.name}</p>
-                                        <p className="update-date">
-                                            <FormattedDate value={new Date(`${story.updatedAt}`)} />
-                                        </p>
-                                    </div>
-                                </Col>
-                                <Col xs={4} md={2}>
-                                    <Link to={`/users/${story.user.id}/stories`} className="user-icon-wrapper">
-                                        <button className="user-icon"></button>
-                                    </Link>
-                                </Col>
+                                <div>
+                                    <p className="user-name">{story.user.name}</p>
+                                    <p className="update-date">
+                                        <FormattedDate value={new Date(`${story.updatedAt}`)} />
+                                    </p>
+                                </div>
+                                <Link to={`/users/${story.user.id}/stories`} className="user-icon-wrapper">
+                                    <button className="user-icon"></button>
+                                </Link>
                             </Col>
                         </Row>
                     </Container>
@@ -250,15 +271,17 @@ export default class PageStory extends Component {
                                         </div>
                                     );
                                 })}
-
-                                <Input
-                                type="text"
-                                name="text"
-                                placeholder="What are you thinking about this story?"
-                                className="form-input-comment"
-                                onChange={this.handleChange}
-                                value={this.state.comment}
-                                />
+                                <FormattedMessage id="comment">
+                                    {placeholder => 
+                                        <Input
+                                        type="text"
+                                        name="text"
+                                        placeholder={placeholder}
+                                        className="form-input-comment"
+                                        onChange={this.handleChange}
+                                        value={this.state.comment}
+                                        />}
+                                </FormattedMessage>
                                 <div className="form-btns">
                                     <Button
                                     className="form-btn-comments"

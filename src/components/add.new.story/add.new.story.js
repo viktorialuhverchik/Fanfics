@@ -113,20 +113,23 @@ export default class AddNewStory extends Component {
                 <h6>
                     <FormattedMessage id="add-title-chapter" />: 
                 </h6>
-                <Input 
-                type="text"
-                name="chapter"
-                placeholder="Title of chapter"
-                value={chapter.heading}
-                onChange={(event) => { this.handleChapterHeadingChange(index, event.target.value); }}
-                className="form-input-chapter" />
+                <FormattedMessage id="title-chapter">
+                    {placeholder =>
+                    <Input 
+                    type="text"
+                    name="chapter"
+                    placeholder={placeholder}
+                    value={chapter.heading}
+                    onChange={(event) => { this.handleChapterHeadingChange(index, event.target.value); }}
+                    className="form-input-chapter" />}
+                </FormattedMessage>
 
                 <Dropzone onDrop={acceptedFiles => console.log(acceptedFiles)}>
                 {({getRootProps, getInputProps}) => (
                     <section className="section-dropzone">
                     <div {...getRootProps()}>
                         <Input  {...getInputProps()} />
-                        <p>Drag 'n' drop some files here, or click to select files</p>
+                        <p><FormattedMessage id="drop-image" /></p>
                     </div>
                     </section>
                 )}
@@ -145,7 +148,7 @@ export default class AddNewStory extends Component {
             return (
                 <h4 key={i} className="chapter-heading-contents">
                     <a href={`#chapter_${chapter.id}`} className="chapter-heading-link">
-                        Chapter {i+1}: {chapter.heading}
+                        <FormattedMessage id="chapter" /> {i+1}: {chapter.heading}
                     </a>
                 </h4>
             );
@@ -163,61 +166,74 @@ export default class AddNewStory extends Component {
                     className="form-add-new-story"
                     onSubmit={this.handleSubmit}>
                         <h6>
-                            <FormattedMessage id="input-add-heading" />: 
+                            <FormattedMessage id="input-add-title" />: 
                         </h6>
-                        <Input
-                        className="form-input-heading"
-                        type="text"
-                        name="heading"
-                        placeholder="Add title"
-                        value={this.state.heading}
-                        onChange={this.handleChange}
-                        required
-                        />
+                        <FormattedMessage id="add-title">
+                            {placeholder =>
+                            <Input
+                            className="form-input-heading"
+                            type="text"
+                            name="heading"
+                            placeholder={placeholder}
+                            value={this.state.heading}
+                            onChange={this.handleChange}
+                            required
+                            />}
+                        </FormattedMessage>
 
                         <h6>
                             <FormattedMessage id="input-add-description" />: 
                         </h6>
-                        <Input
-                        className="form-input-description"
-                        type="text"
-                        name="description"
-                        placeholder="Add description of story"
-                        value={this.state.description}
-                        onChange={this.handleChange}
-                        required
-                        />
+                        <FormattedMessage id="add-description">
+                            {placeholder =>
+                            <Input
+                            className="form-input-description"
+                            type="text"
+                            name="description"
+                            placeholder={placeholder}
+                            value={this.state.description}
+                            onChange={this.handleChange}
+                            required
+                            />}
+                        </FormattedMessage>
 
                         <h6>
                             <FormattedMessage id="selected-genre" />: 
                         </h6>
-                        <Select
-                        className="select-genres"
-                        onChange={this.handleSelectGenre}
-                        options={
-                            this.state.genres.map(genre => {
-                                return {
-                                    label: genre.name,
-                                    value: genre
-                                };
-                            })
-                        }
-                        placeholder="Choose genre"
-                        />
+
+                        <FormattedMessage id="choose-genre">
+                            {placeholder =>
+                            <Select
+                            className="select-genres"
+                            onChange={this.handleSelectGenre}
+                            options={
+                                this.state.genres.map(genre => {
+                                    return {
+                                        label: genre.name,
+                                        value: genre
+                                    };
+                                })
+                            }
+                            placeholder={placeholder}
+                            />}
+                        </FormattedMessage>
 
                         <h6>
                             <FormattedMessage id="add-tags" />: 
                         </h6>
                         <Row className="add-tags">
                             <Col>
-                                <Input
-                                className="form-input-tag"
-                                type="text"
-                                name="newTag"
-                                placeholder="Enter your tag"
-                                value={this.state.newTag}
-                                onChange={this.handleChange}
-                                />
+                                <FormattedMessage id="enter-tag">
+                                    {placeholder =>
+                                    <Input
+                                    className="form-input-tag"
+                                    type="text"
+                                    name="newTag"
+                                    placeholder={placeholder}
+                                    value={this.state.newTag}
+                                    onChange={this.handleChange}
+                                    />}
+                                </FormattedMessage>
                             </Col>
                             <Col className="col-add-new-tag">
                                 <Button 

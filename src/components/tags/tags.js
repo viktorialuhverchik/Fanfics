@@ -23,7 +23,7 @@ export default class Tags extends Component {
         return (
             <Container className="container-tags">
                 {tags.map(tag => { return (
-                    <Link key={tag.id} className="tag-link">{tag.name}</Link>
+                    <Link key={tag.id} className="tag-link" to="/">{tag.name}</Link>
                 );})}
             </Container>
         );

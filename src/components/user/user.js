@@ -14,19 +14,26 @@ export default class User extends Component {
             stories: []
         };
 
+    this.onDeleteStory = this.onDeleteStory.bind(this);
     this.handleClickSave = this.handleClickSave.bind(this);
     this.handleClickLogout = this.handleClickLogout.bind(this);
     this.handleChange = this.handleChange.bind(this);
     }
 
-    async componentWillMount() {
+    async componentDidMount() {
         const user = await userService.getUserById(this.props.match.params.id);
         const stories = await userService.getStoriesByUserId(this.props.match.params.id);
-        console.log(user, stories);
         this.setState({ 
             user,
             stories
         });
+    }
+
+    onDeleteStory(storyId) {
+        let allStories = this.state.stories;
+        let index = allStories.findIndex(story => story.id === storyId);
+        allStories.splice(index, 1);
+        this.setState({ stories: allStories });
     }
 
     handleClickSave() {
@@ -34,6 +41,8 @@ export default class User extends Component {
     }
 
     handleClickLogout() {
+        localStorage.clear();
+        window.location.href = '/';
     }
 
     handleChange() {
@@ -43,13 +52,14 @@ export default class User extends Component {
     render() {
         const user = this.state.user
         const userId = this.props.match.params.id;
+        const currentUserId = this.props.userId;
         
         if (!user) {
             return (
                 <Row>
                     <Col>
                         <Container className="container-page-story">
-                            <h4>Loading...</h4>
+                            <h4><FormattedMessage id="loading" /></h4>
                         </Container>
                     </Col>
                 </Row>
@@ -62,9 +72,11 @@ export default class User extends Component {
                         <Row>
                             <Col xs={8} md={4} className="user-icon-col">
                                 <div className="icon"></div>
+                                { currentUserId !== userId ? "" :
                                 <Button className="button-logout" onClick={this.handleClickLogout}>
                                     <FormattedMessage id="button-logout"/>
-                                </Button>
+                                </Button>}
+                                
                             </Col>
                             <Col xs={8} md={6}>
                                 <h6>
@@ -93,13 +105,14 @@ export default class User extends Component {
                                     />
                                 </div>
                                 
+                                { currentUserId !== userId ? "" : 
                                 <Button className="button-save" onClick={this.handleClickSave}>
                                     <FormattedMessage id="button-save"/>
-                                </Button>
+                                </Button>}
                             </Col>
                         </Row>
                     </Container>
-                    { this.state.stories.map(story => <RenderedStory key={story.id} story={story} userId={userId} />) }
+                    { this.state.stories.map(story => <RenderedStory key={story.id} story={story} userId={userId} onDeleteStory={this.onDeleteStory} />) }
                 </Col>
             </Row>
         );

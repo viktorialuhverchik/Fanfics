@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import { Form, Input, Row, Col } from 'reactstrap';
+import { FormattedMessage } from 'react-intl';
 import { Redirect } from 'react-router-dom'; 
 import './search.panel.css';
 
@@ -12,25 +13,18 @@ export default class SearchPanel extends Component {
             redirect: null
         };
 
-    // this.handleChange = this.handleChange.bind(this);
-    // this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
     }
 
-    // handleChange(event) {
-    //     this.setState({
-    //         [event.target.name]: event.target.value
-    //     });
-    // }
+    handleChange(event) {
+        this.setState({
+            [event.target.name]: event.target.value
+        });
+    }
 
-    async handleSubmit(event) {
-        event.preventDefault();
-
-        try {
-            localStorage.setItem('text', this.state.text);
-            this.setState({redirect: '/searchresult'});
-        } catch(error) {
-            console.log(error);;
-        }
+    handleSubmit(event) {
+        
     }
 
 
@@ -40,19 +34,22 @@ export default class SearchPanel extends Component {
         }
         return(
             <Form 
-            // onSubmit={this.handleSubmit}
+            onSubmit={this.handleSubmit}
             className="form-search">
                 <Row>
                     <Col xs={12} md={8}className="search-input">
-                        <Input
-                        type="text"
-                        name="text"
-                        placeholder="Search"
-                        className="form-input-search"
-                        value={this.state.text}
-                        // onChange={this.handleChange}
-                        required
-                        />
+                        <FormattedMessage id="search">
+                            {placeholder => 
+                            <Input
+                            type="text"
+                            name="text"
+                            placeholder={placeholder}
+                            className="form-input-search"
+                            value={this.state.text}
+                            onChange={this.handleChange}
+                            required
+                            />}
+                        </FormattedMessage>
                     </Col>
                     <Col xs={6} md={4}>
                         <button

@@ -50,7 +50,8 @@ export default class Login extends Component {
                 <p>
                     <FormattedMessage id="login" />
                 </p>
-                <Input id="input-email"
+                <Input 
+                id="input-email"
                 className="form-input"
                 type="email"
                 name="email"
@@ -60,15 +61,18 @@ export default class Login extends Component {
                 required
                 />
 
-                <Input
-                className="form-input"
-                type="password"
-                name="password"
-                placeholder="Password" 
-                value={this.state.password}
-                onChange={this.handleChange}
-                required
-                />
+                <FormattedMessage id="password">
+                    {placeholder => 
+                    <Input
+                    className='form-input'
+                    type="password"
+                    name="password"
+                    placeholder={placeholder}
+                    value={this.state.password}
+                    onChange={this.handleChange}
+                    required
+                    />}
+                </FormattedMessage>
                 
                 <Button 
                 className="form-btn"

@@ -24,11 +24,11 @@ export default class Admin extends Component {
         return this.state.users.map(user => {
             return (
                 <tr key={user.id}>
-                    <th scope="row">
-                        <Input className="input-checkbox"
-                                type="checkbox"
-                                onChange={(event) => { this.handleChange(user.id, event); }}
-                                checked={user.isSelected} />
+                    <th scope="row" className="input-checkbox">
+                        <Input
+                            type="checkbox"
+                            onChange={(event) => { this.handleChange(user.id, event); }}
+                            checked={user.isSelected} />
                     </th>
                     <td>{user.id}</td>
                     <td>{user.name}</td>
@@ -92,7 +92,7 @@ export default class Admin extends Component {
             let email = localStorage.getItem('email');
             let currentUser = usersForBlock.find(user => user.email === email);
             if (currentUser) {
-                return this.setState({redirect: '/login'});
+                return this.setState({redirect: '/'});
             }
         } catch(error) {
             console.log(error);
@@ -154,7 +154,7 @@ export default class Admin extends Component {
             let email = localStorage.getItem('email');
             let currentUser = usersForDelete.find(user => user.email === email);
             if (currentUser) {
-                return this.setState({redirect: '/login'});
+                return this.setState({redirect: '/'});
             }
         } catch(error) {
             console.dir(error);
@@ -215,7 +215,9 @@ export default class Admin extends Component {
                         <Table>
                             <thead className="table-header">
                                 <tr>
-                                <th className="input-all"><Input type="checkbox" onChange={this.handleChangeAll} /></th>
+                                <th className="input-checkbox">
+                                    <Input type="checkbox" onChange={this.handleChangeAll} />
+                                </th>
                                 <th>id</th> 
                                 <th>Name</th>
                                 <th>Email</th>

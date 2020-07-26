@@ -57,6 +57,7 @@ export default {
         })
         .then(response => response.data)
     },
+    
     blockAndUnblockUsers(users, command) {
         const token = localStorage.getItem('token');
         return axios({
