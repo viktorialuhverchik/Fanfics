@@ -20,9 +20,9 @@ export default class User extends Component {
     }
 
     async componentWillMount() {
-        const user = await userService.getUserById(this.props.userId);
-        const stories = await userService.getStoriesByUserId(this.props.userId);
-        console.log(stories);
+        const user = await userService.getUserById(this.props.match.params.id);
+        const stories = await userService.getStoriesByUserId(this.props.match.params.id);
+        console.log(user, stories);
         this.setState({ 
             user,
             stories
@@ -42,7 +42,7 @@ export default class User extends Component {
 
     render() {
         const user = this.state.user
-        const userId = this.props.userId;
+        const userId = this.props.match.params.id;
         
         if (!user) {
             return (
