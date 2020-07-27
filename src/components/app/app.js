@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { Route, Switch } from "react-router-dom";
+import { Route, Switch, withRouter } from "react-router-dom";
 import { Col } from 'reactstrap';
 import Header from '../header/header';
 import Menu from '../menu/menu';
@@ -11,7 +11,6 @@ import Admin from '../admin/admin';
 import AddNewStory from '../add.new.story/add.new.story';
 import PageStory from '../page.story/page.story';
 import SearchResult from '../search.result/search.result';
-import MarkdownPageStory from '../markdown.page.story/markdown.page.story';
 import PageNotFound from '../page.not.found/page.not.found';
 import locales from '../locales';
 import LocaleSelector from '../locale.selector/locale.selector';
@@ -55,11 +54,12 @@ export default class App extends Component {
     render() {
         const language = this.state.language;
         const userId = this.state.userId;
+        const RouterHeader = withRouter(props => <Header {...props} userId={userId} />);
 
         return (
             <div className="app">
                 <IntlProvider locale={language} messages={messages[language]}>
-                    <Header userId={userId} />
+                    <RouterHeader />
                     <Col xs={6} md={4} className="menu">
                         <LocaleSelector onLocaleChange={this.onLocaleChange} />
                         <ThemeSelector />
@@ -74,7 +74,6 @@ export default class App extends Component {
                         <Route exact path="/addnewstory" component={AddNewStory} />
                         <Route exact path="/pagestory/:storyId" render={(props) => <PageStory {...props} userId={userId} />} />
                         <Route exact path="/searchresult" component={SearchResult} />
-                        <Route exact path="/markdownpage" component={MarkdownPageStory} />
                         <Route exact path="/404" component={PageNotFound} />
                         <Route exact path="/" render={(props) => <SortedByNew {...props} userId={userId} />} />
                     </Switch>

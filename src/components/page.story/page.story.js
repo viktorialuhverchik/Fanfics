@@ -90,9 +90,7 @@ export default class PageStory extends Component {
                             <i className="fa fa-trash" onClick={() => this.deleteChapter(chapter.id)} aria-hidden="true"></i>
                         </Col>
                         <Col>
-                            <Link to={"/markdownpage"}>
-                                <i className="fa fa-pencil" aria-hidden="true"></i>
-                            </Link>
+                            <i className="fa fa-pencil" aria-hidden="true"></i>
                         </Col>
                     </Row>;
         }

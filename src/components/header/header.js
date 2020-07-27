@@ -8,21 +8,12 @@ import './header.css';
 export default class Header extends Component {
     constructor(props) {
         super(props);
-
         this.state = {};
-
-        this.handleClickNew = this.handleClickNew.bind(this);
-        this.handleClickRating = this.handleClickRating.bind(this);
-    }
-
-    handleClickNew() {
-    }
-
-    handleClickRating() {
     }
     
     render() {
         const id = this.props.userId;
+        const path = this.props.location.pathname;
         let userIcon = null;
         if(id) {
             userIcon =  <Link to={`/users/${id}/stories`} className="user-icon-wrapper">
@@ -35,14 +26,12 @@ export default class Header extends Component {
                     <Link to="/" className="logo">Fanfics</Link>
                     <Link
                     to="/new"
-                    className="sorted-by-new"
-                    onClick={this.handleClickNew}>
+                    className={`sorted-by-new ${path === '/new' || path === '/' ? 'select-sort' : ''}`}>
                         <FormattedMessage id="sorted-by-new" />
                     </Link>
                     <Link
                     to="/popular"
-                    className="sorted-by-rating"
-                    onClick={this.handleClickRating}>
+                    className={`sorted-by-rating ${path === '/popular' ? 'select-sort' : ''}`}>
                         <FormattedMessage id="sorted-by-rating" />
                     </Link>
                 </Col>

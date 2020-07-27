@@ -12,7 +12,7 @@ import './add.new.story.css';
 export default class AddNewStory extends Component {
     constructor(props) {
         super(props);
-
+        
         this.state = {
             heading: "",
             genres: [],
