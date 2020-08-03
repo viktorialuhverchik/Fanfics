@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { Row, Col } from 'reactstrap';
 import { Link } from "react-router-dom";
-import SearchPanel from '../search.panel/search.panel';
+// import SearchPanel from '../search.panel/search.panel';
 import './header.css';
 
 export default class Header extends Component {
@@ -36,7 +36,7 @@ export default class Header extends Component {
                     </Link>
                 </Col>
                 <Col xs={6} md={4} className="search-panel">
-                    <SearchPanel />
+                    {/* <SearchPanel /> */}
                 </Col>
                 <Col>
                     {userIcon}

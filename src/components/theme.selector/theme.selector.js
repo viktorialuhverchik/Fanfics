@@ -11,6 +11,7 @@ const themes = {
 export default function ThemeSelector() {
     const [selectedTheme, setSelectedTheme] = useState(localStorage.getItem("theme") || themes.light);
     const onSelectTheme = (theme) => {
+        console.log(theme);
         setSelectedTheme(theme.value);
     }
 

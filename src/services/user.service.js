@@ -16,12 +16,10 @@ export default {
     },
 
     getUserById(id) {
-        const token = localStorage.getItem('token');
         return axios({
             method: 'GET',
             headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${token}`
+                'Content-Type': 'application/json'
             },
             url: `${api}/users/${id}`
         })
@@ -29,12 +27,10 @@ export default {
     },
 
     getStoriesByUserId(id) {
-        const token = localStorage.getItem('token');
         return axios({
         method: 'GET',
         headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token}`
+            'Content-Type': 'application/json'
         },
         url: `${api}/users/${id}/stories`
     })

@@ -112,7 +112,7 @@ export default class User extends Component {
                             </Col>
                         </Row>
                     </Container>
-                    { this.state.stories.map(story => <RenderedStory key={story.id} story={story} userId={userId} onDeleteStory={this.onDeleteStory} />) }
+                    { this.state.stories.map(story => <RenderedStory key={story.id} story={story} userId={currentUserId} onDeleteStory={this.onDeleteStory} />) }
                 </Col>
             </Row>
         );
